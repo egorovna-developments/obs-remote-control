@@ -22,8 +22,9 @@ public class RemoveSourceFilterRequest extends Request<RemoveSourceFilterRequest
     /**
      * RemoveSourceFilterRequest constructor
      */
-    public RemoveSourceFilterRequest(String sourceName, String sourceUuid, String filterName) {
-        super("RemoveSourceFilter", new Data(sourceName, sourceUuid, filterName));
+    public RemoveSourceFilterRequest(String canvasUuid, String sourceName, String sourceUuid,
+            String filterName) {
+        super("RemoveSourceFilter", new Data(canvasUuid, sourceName, sourceUuid, filterName));
     }
 
     /**
@@ -37,6 +38,12 @@ public class RemoveSourceFilterRequest extends Request<RemoveSourceFilterRequest
             callSuper = true
     )
     public static class Data implements Serializable {
+        /**
+         * UUID of the canvas the source is in, if using the sourceName field
+         */
+        @JsonProperty("canvasUuid")
+        private String canvasUuid;
+
         /**
          * Name of the source the filter is on
          */

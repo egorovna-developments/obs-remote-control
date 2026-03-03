@@ -27,9 +27,10 @@ public class SaveSourceScreenshotRequest extends Request<SaveSourceScreenshotReq
     /**
      * SaveSourceScreenshotRequest constructor
      */
-    public SaveSourceScreenshotRequest(String sourceName, String sourceUuid, String imageFormat,
-            String imageFilePath, int imageWidth, int imageHeight, int imageCompressionQuality) {
-        super("SaveSourceScreenshot", new Data(sourceName, sourceUuid, imageFormat, imageFilePath, imageWidth, imageHeight, imageCompressionQuality));
+    public SaveSourceScreenshotRequest(String canvasUuid, String sourceName, String sourceUuid,
+            String imageFormat, String imageFilePath, int imageWidth, int imageHeight,
+            int imageCompressionQuality) {
+        super("SaveSourceScreenshot", new Data(canvasUuid, sourceName, sourceUuid, imageFormat, imageFilePath, imageWidth, imageHeight, imageCompressionQuality));
     }
 
     /**
@@ -43,6 +44,12 @@ public class SaveSourceScreenshotRequest extends Request<SaveSourceScreenshotReq
             callSuper = true
     )
     public static class Data implements Serializable {
+        /**
+         * UUID of the canvas the source is in, if using sourceName field
+         */
+        @JsonProperty("canvasUuid")
+        private String canvasUuid;
+
         /**
          * Name of the source to take a screenshot of
          */

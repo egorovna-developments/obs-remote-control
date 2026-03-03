@@ -24,9 +24,9 @@ public class SetSceneItemIndexRequest extends Request<SetSceneItemIndexRequest.D
     /**
      * SetSceneItemIndexRequest constructor
      */
-    public SetSceneItemIndexRequest(String sceneName, String sceneUuid, int sceneItemId,
-            int sceneItemIndex) {
-        super("SetSceneItemIndex", new Data(sceneName, sceneUuid, sceneItemId, sceneItemIndex));
+    public SetSceneItemIndexRequest(String canvasUuid, String sceneName, String sceneUuid,
+            int sceneItemId, int sceneItemIndex) {
+        super("SetSceneItemIndex", new Data(canvasUuid, sceneName, sceneUuid, sceneItemId, sceneItemIndex));
     }
 
     /**
@@ -40,6 +40,12 @@ public class SetSceneItemIndexRequest extends Request<SetSceneItemIndexRequest.D
             callSuper = true
     )
     public static class Data implements Serializable {
+        /**
+         * UUID of the canvas the scene is in, if using the sceneName field
+         */
+        @JsonProperty("canvasUuid")
+        private String canvasUuid;
+
         /**
          * Name of the scene the item is in
          */

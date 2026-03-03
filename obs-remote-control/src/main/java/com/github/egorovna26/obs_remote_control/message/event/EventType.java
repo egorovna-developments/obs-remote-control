@@ -1,5 +1,8 @@
 package com.github.egorovna26.obs_remote_control.message.event;
 
+import com.github.egorovna26.obs_remote_control.message.event.canvases.CanvasCreated;
+import com.github.egorovna26.obs_remote_control.message.event.canvases.CanvasNameChanged;
+import com.github.egorovna26.obs_remote_control.message.event.canvases.CanvasRemoved;
 import com.github.egorovna26.obs_remote_control.message.event.config.CurrentProfileChanged;
 import com.github.egorovna26.obs_remote_control.message.event.config.CurrentProfileChanging;
 import com.github.egorovna26.obs_remote_control.message.event.config.CurrentSceneCollectionChanged;
@@ -70,6 +73,21 @@ import org.apache.commons.lang3.StringUtils;
 @RequiredArgsConstructor
 @Getter
 public enum EventType implements Serializable {
+    /**
+     * A new canvas has been created.
+     */
+    CANVAS_CREATED("CanvasCreated", CanvasCreated.class),
+
+    /**
+     * A canvas has been removed.
+     */
+    CANVAS_REMOVED("CanvasRemoved", CanvasRemoved.class),
+
+    /**
+     * The name of a canvas has changed.
+     */
+    CANVAS_NAME_CHANGED("CanvasNameChanged", CanvasNameChanged.class),
+
     /**
      * The current scene collection has begun changing.
      *

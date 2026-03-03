@@ -26,8 +26,8 @@ public class GetGroupSceneItemListRequest extends Request<GetGroupSceneItemListR
     /**
      * GetGroupSceneItemListRequest constructor
      */
-    public GetGroupSceneItemListRequest(String sceneName, String sceneUuid) {
-        super("GetGroupSceneItemList", new Data(sceneName, sceneUuid));
+    public GetGroupSceneItemListRequest(String canvasUuid, String sceneName, String sceneUuid) {
+        super("GetGroupSceneItemList", new Data(canvasUuid, sceneName, sceneUuid));
     }
 
     /**
@@ -41,6 +41,12 @@ public class GetGroupSceneItemListRequest extends Request<GetGroupSceneItemListR
             callSuper = true
     )
     public static class Data implements Serializable {
+        /**
+         * UUID of the canvas the group is in, if using the sceneName field
+         */
+        @JsonProperty("canvasUuid")
+        private String canvasUuid;
+
         /**
          * Name of the group to get the items of
          */

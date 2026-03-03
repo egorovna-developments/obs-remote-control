@@ -24,9 +24,9 @@ public class SetSceneItemBlendModeRequest extends Request<SetSceneItemBlendModeR
     /**
      * SetSceneItemBlendModeRequest constructor
      */
-    public SetSceneItemBlendModeRequest(String sceneName, String sceneUuid, int sceneItemId,
-            String sceneItemBlendMode) {
-        super("SetSceneItemBlendMode", new Data(sceneName, sceneUuid, sceneItemId, sceneItemBlendMode));
+    public SetSceneItemBlendModeRequest(String canvasUuid, String sceneName, String sceneUuid,
+            int sceneItemId, String sceneItemBlendMode) {
+        super("SetSceneItemBlendMode", new Data(canvasUuid, sceneName, sceneUuid, sceneItemId, sceneItemBlendMode));
     }
 
     /**
@@ -40,6 +40,12 @@ public class SetSceneItemBlendModeRequest extends Request<SetSceneItemBlendModeR
             callSuper = true
     )
     public static class Data implements Serializable {
+        /**
+         * UUID of the canvas the scene is in, if using the sceneName field
+         */
+        @JsonProperty("canvasUuid")
+        private String canvasUuid;
+
         /**
          * Name of the scene the item is in
          */

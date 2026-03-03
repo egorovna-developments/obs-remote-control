@@ -24,9 +24,9 @@ public class OpenSourceProjectorRequest extends Request<OpenSourceProjectorReque
     /**
      * OpenSourceProjectorRequest constructor
      */
-    public OpenSourceProjectorRequest(String sourceName, String sourceUuid, int monitorIndex,
-            String projectorGeometry) {
-        super("OpenSourceProjector", new Data(sourceName, sourceUuid, monitorIndex, projectorGeometry));
+    public OpenSourceProjectorRequest(String canvasUuid, String sourceName, String sourceUuid,
+            int monitorIndex, String projectorGeometry) {
+        super("OpenSourceProjector", new Data(canvasUuid, sourceName, sourceUuid, monitorIndex, projectorGeometry));
     }
 
     /**
@@ -40,6 +40,12 @@ public class OpenSourceProjectorRequest extends Request<OpenSourceProjectorReque
             callSuper = true
     )
     public static class Data implements Serializable {
+        /**
+         * UUID of the canvas the source is in, if using the sourceName field
+         */
+        @JsonProperty("canvasUuid")
+        private String canvasUuid;
+
         /**
          * Name of the source to open a projector for
          */

@@ -23,9 +23,9 @@ public class CreateInputRequest extends Request<CreateInputRequest.Data> {
     /**
      * CreateInputRequest constructor
      */
-    public CreateInputRequest(String sceneName, String sceneUuid, String inputName,
-            String inputKind, Object inputSettings, boolean sceneItemEnabled) {
-        super("CreateInput", new Data(sceneName, sceneUuid, inputName, inputKind, inputSettings, sceneItemEnabled));
+    public CreateInputRequest(String canvasUuid, String sceneName, String sceneUuid,
+            String inputName, String inputKind, Object inputSettings, boolean sceneItemEnabled) {
+        super("CreateInput", new Data(canvasUuid, sceneName, sceneUuid, inputName, inputKind, inputSettings, sceneItemEnabled));
     }
 
     /**
@@ -39,6 +39,12 @@ public class CreateInputRequest extends Request<CreateInputRequest.Data> {
             callSuper = true
     )
     public static class Data implements Serializable {
+        /**
+         * UUID of the canvas the scene is in, if using the sceneName field
+         */
+        @JsonProperty("canvasUuid")
+        private String canvasUuid;
+
         /**
          * Name of the scene to add the input to as a scene item
          */

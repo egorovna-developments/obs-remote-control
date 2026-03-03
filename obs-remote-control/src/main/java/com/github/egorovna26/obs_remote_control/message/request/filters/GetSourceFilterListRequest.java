@@ -22,8 +22,8 @@ public class GetSourceFilterListRequest extends Request<GetSourceFilterListReque
     /**
      * GetSourceFilterListRequest constructor
      */
-    public GetSourceFilterListRequest(String sourceName, String sourceUuid) {
-        super("GetSourceFilterList", new Data(sourceName, sourceUuid));
+    public GetSourceFilterListRequest(String canvasUuid, String sourceName, String sourceUuid) {
+        super("GetSourceFilterList", new Data(canvasUuid, sourceName, sourceUuid));
     }
 
     /**
@@ -37,6 +37,12 @@ public class GetSourceFilterListRequest extends Request<GetSourceFilterListReque
             callSuper = true
     )
     public static class Data implements Serializable {
+        /**
+         * UUID of the canvas the source is in, if using the sourceName field
+         */
+        @JsonProperty("canvasUuid")
+        private String canvasUuid;
+
         /**
          * Name of the source
          */

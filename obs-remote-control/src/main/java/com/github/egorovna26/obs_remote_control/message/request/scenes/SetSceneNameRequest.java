@@ -22,8 +22,9 @@ public class SetSceneNameRequest extends Request<SetSceneNameRequest.Data> {
     /**
      * SetSceneNameRequest constructor
      */
-    public SetSceneNameRequest(String sceneName, String sceneUuid, String newSceneName) {
-        super("SetSceneName", new Data(sceneName, sceneUuid, newSceneName));
+    public SetSceneNameRequest(String canvasUuid, String sceneName, String sceneUuid,
+            String newSceneName) {
+        super("SetSceneName", new Data(canvasUuid, sceneName, sceneUuid, newSceneName));
     }
 
     /**
@@ -37,6 +38,12 @@ public class SetSceneNameRequest extends Request<SetSceneNameRequest.Data> {
             callSuper = true
     )
     public static class Data implements Serializable {
+        /**
+         * UUID of the canvas the scene is in, if using the sceneName field
+         */
+        @JsonProperty("canvasUuid")
+        private String canvasUuid;
+
         /**
          * Name of the scene to be renamed
          */

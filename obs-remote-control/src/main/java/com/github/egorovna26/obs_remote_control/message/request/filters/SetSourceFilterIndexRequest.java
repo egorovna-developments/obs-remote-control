@@ -22,9 +22,9 @@ public class SetSourceFilterIndexRequest extends Request<SetSourceFilterIndexReq
     /**
      * SetSourceFilterIndexRequest constructor
      */
-    public SetSourceFilterIndexRequest(String sourceName, String sourceUuid, String filterName,
-            int filterIndex) {
-        super("SetSourceFilterIndex", new Data(sourceName, sourceUuid, filterName, filterIndex));
+    public SetSourceFilterIndexRequest(String canvasUuid, String sourceName, String sourceUuid,
+            String filterName, int filterIndex) {
+        super("SetSourceFilterIndex", new Data(canvasUuid, sourceName, sourceUuid, filterName, filterIndex));
     }
 
     /**
@@ -38,6 +38,12 @@ public class SetSourceFilterIndexRequest extends Request<SetSourceFilterIndexReq
             callSuper = true
     )
     public static class Data implements Serializable {
+        /**
+         * UUID of the canvas the source is in, if using the sourceName field
+         */
+        @JsonProperty("canvasUuid")
+        private String canvasUuid;
+
         /**
          * Name of the source the filter is on
          */

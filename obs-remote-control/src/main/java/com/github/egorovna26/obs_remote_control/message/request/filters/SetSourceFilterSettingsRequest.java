@@ -23,9 +23,9 @@ public class SetSourceFilterSettingsRequest extends Request<SetSourceFilterSetti
     /**
      * SetSourceFilterSettingsRequest constructor
      */
-    public SetSourceFilterSettingsRequest(String sourceName, String sourceUuid, String filterName,
-            Object filterSettings, boolean overlay) {
-        super("SetSourceFilterSettings", new Data(sourceName, sourceUuid, filterName, filterSettings, overlay));
+    public SetSourceFilterSettingsRequest(String canvasUuid, String sourceName, String sourceUuid,
+            String filterName, Object filterSettings, boolean overlay) {
+        super("SetSourceFilterSettings", new Data(canvasUuid, sourceName, sourceUuid, filterName, filterSettings, overlay));
     }
 
     /**
@@ -39,6 +39,12 @@ public class SetSourceFilterSettingsRequest extends Request<SetSourceFilterSetti
             callSuper = true
     )
     public static class Data implements Serializable {
+        /**
+         * UUID of the canvas the source is in, if using the sourceName field
+         */
+        @JsonProperty("canvasUuid")
+        private String canvasUuid;
+
         /**
          * Name of the source the filter is on
          */

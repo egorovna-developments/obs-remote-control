@@ -22,9 +22,9 @@ public class SetSceneSceneTransitionOverrideRequest extends Request<SetSceneScen
     /**
      * SetSceneSceneTransitionOverrideRequest constructor
      */
-    public SetSceneSceneTransitionOverrideRequest(String sceneName, String sceneUuid,
-            String transitionName, int transitionDuration) {
-        super("SetSceneSceneTransitionOverride", new Data(sceneName, sceneUuid, transitionName, transitionDuration));
+    public SetSceneSceneTransitionOverrideRequest(String canvasUuid, String sceneName,
+            String sceneUuid, String transitionName, int transitionDuration) {
+        super("SetSceneSceneTransitionOverride", new Data(canvasUuid, sceneName, sceneUuid, transitionName, transitionDuration));
     }
 
     /**
@@ -38,6 +38,12 @@ public class SetSceneSceneTransitionOverrideRequest extends Request<SetSceneScen
             callSuper = true
     )
     public static class Data implements Serializable {
+        /**
+         * UUID of the canvas the scene is in, if using the sceneName field
+         */
+        @JsonProperty("canvasUuid")
+        private String canvasUuid;
+
         /**
          * Name of the scene
          */

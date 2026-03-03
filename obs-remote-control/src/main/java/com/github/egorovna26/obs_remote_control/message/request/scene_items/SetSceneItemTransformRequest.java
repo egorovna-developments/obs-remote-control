@@ -23,9 +23,9 @@ public class SetSceneItemTransformRequest extends Request<SetSceneItemTransformR
     /**
      * SetSceneItemTransformRequest constructor
      */
-    public SetSceneItemTransformRequest(String sceneName, String sceneUuid, int sceneItemId,
-            Object sceneItemTransform) {
-        super("SetSceneItemTransform", new Data(sceneName, sceneUuid, sceneItemId, sceneItemTransform));
+    public SetSceneItemTransformRequest(String canvasUuid, String sceneName, String sceneUuid,
+            int sceneItemId, Object sceneItemTransform) {
+        super("SetSceneItemTransform", new Data(canvasUuid, sceneName, sceneUuid, sceneItemId, sceneItemTransform));
     }
 
     /**
@@ -39,6 +39,12 @@ public class SetSceneItemTransformRequest extends Request<SetSceneItemTransformR
             callSuper = true
     )
     public static class Data implements Serializable {
+        /**
+         * UUID of the canvas the scene is in, if using the sceneName field
+         */
+        @JsonProperty("canvasUuid")
+        private String canvasUuid;
+
         /**
          * Name of the scene the item is in
          */

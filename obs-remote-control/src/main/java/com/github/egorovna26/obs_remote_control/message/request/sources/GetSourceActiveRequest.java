@@ -24,8 +24,8 @@ public class GetSourceActiveRequest extends Request<GetSourceActiveRequest.Data>
     /**
      * GetSourceActiveRequest constructor
      */
-    public GetSourceActiveRequest(String sourceName, String sourceUuid) {
-        super("GetSourceActive", new Data(sourceName, sourceUuid));
+    public GetSourceActiveRequest(String canvasUuid, String sourceName, String sourceUuid) {
+        super("GetSourceActive", new Data(canvasUuid, sourceName, sourceUuid));
     }
 
     /**
@@ -39,6 +39,12 @@ public class GetSourceActiveRequest extends Request<GetSourceActiveRequest.Data>
             callSuper = true
     )
     public static class Data implements Serializable {
+        /**
+         * UUID of the canvas the source is in, if using sourceName field
+         */
+        @JsonProperty("canvasUuid")
+        private String canvasUuid;
+
         /**
          * Name of the source to get the active state of
          */

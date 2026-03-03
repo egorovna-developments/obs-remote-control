@@ -24,9 +24,9 @@ public class CreateSceneItemRequest extends Request<CreateSceneItemRequest.Data>
     /**
      * CreateSceneItemRequest constructor
      */
-    public CreateSceneItemRequest(String sceneName, String sceneUuid, String sourceName,
-            String sourceUuid, boolean sceneItemEnabled) {
-        super("CreateSceneItem", new Data(sceneName, sceneUuid, sourceName, sourceUuid, sceneItemEnabled));
+    public CreateSceneItemRequest(String canvasUuid, String sceneName, String sceneUuid,
+            String sourceName, String sourceUuid, boolean sceneItemEnabled) {
+        super("CreateSceneItem", new Data(canvasUuid, sceneName, sceneUuid, sourceName, sourceUuid, sceneItemEnabled));
     }
 
     /**
@@ -40,6 +40,12 @@ public class CreateSceneItemRequest extends Request<CreateSceneItemRequest.Data>
             callSuper = true
     )
     public static class Data implements Serializable {
+        /**
+         * UUID of the canvas the scene is in, if using the sceneName field
+         */
+        @JsonProperty("canvasUuid")
+        private String canvasUuid;
+
         /**
          * Name of the scene to create the new item in
          */

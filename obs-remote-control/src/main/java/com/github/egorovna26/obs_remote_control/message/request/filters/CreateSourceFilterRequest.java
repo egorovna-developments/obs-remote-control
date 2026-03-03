@@ -23,9 +23,9 @@ public class CreateSourceFilterRequest extends Request<CreateSourceFilterRequest
     /**
      * CreateSourceFilterRequest constructor
      */
-    public CreateSourceFilterRequest(String sourceName, String sourceUuid, String filterName,
-            String filterKind, Object filterSettings) {
-        super("CreateSourceFilter", new Data(sourceName, sourceUuid, filterName, filterKind, filterSettings));
+    public CreateSourceFilterRequest(String canvasUuid, String sourceName, String sourceUuid,
+            String filterName, String filterKind, Object filterSettings) {
+        super("CreateSourceFilter", new Data(canvasUuid, sourceName, sourceUuid, filterName, filterKind, filterSettings));
     }
 
     /**
@@ -39,6 +39,12 @@ public class CreateSourceFilterRequest extends Request<CreateSourceFilterRequest
             callSuper = true
     )
     public static class Data implements Serializable {
+        /**
+         * UUID of the canvas the source is in, if using the sourceName field
+         */
+        @JsonProperty("canvasUuid")
+        private String canvasUuid;
+
         /**
          * Name of the source to add the filter to
          */

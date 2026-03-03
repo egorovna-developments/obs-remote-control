@@ -24,9 +24,9 @@ public class GetSceneItemIdRequest extends Request<GetSceneItemIdRequest.Data> {
     /**
      * GetSceneItemIdRequest constructor
      */
-    public GetSceneItemIdRequest(String sceneName, String sceneUuid, String sourceName,
-            int searchOffset) {
-        super("GetSceneItemId", new Data(sceneName, sceneUuid, sourceName, searchOffset));
+    public GetSceneItemIdRequest(String canvasUuid, String sceneName, String sceneUuid,
+            String sourceName, int searchOffset) {
+        super("GetSceneItemId", new Data(canvasUuid, sceneName, sceneUuid, sourceName, searchOffset));
     }
 
     /**
@@ -40,6 +40,12 @@ public class GetSceneItemIdRequest extends Request<GetSceneItemIdRequest.Data> {
             callSuper = true
     )
     public static class Data implements Serializable {
+        /**
+         * UUID of the canvas the scene or group is in, if using the sceneName field
+         */
+        @JsonProperty("canvasUuid")
+        private String canvasUuid;
+
         /**
          * Name of the scene or group to search in
          */

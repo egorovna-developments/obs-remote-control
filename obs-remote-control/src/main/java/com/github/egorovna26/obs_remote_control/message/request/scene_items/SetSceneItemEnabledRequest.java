@@ -24,9 +24,9 @@ public class SetSceneItemEnabledRequest extends Request<SetSceneItemEnabledReque
     /**
      * SetSceneItemEnabledRequest constructor
      */
-    public SetSceneItemEnabledRequest(String sceneName, String sceneUuid, int sceneItemId,
-            boolean sceneItemEnabled) {
-        super("SetSceneItemEnabled", new Data(sceneName, sceneUuid, sceneItemId, sceneItemEnabled));
+    public SetSceneItemEnabledRequest(String canvasUuid, String sceneName, String sceneUuid,
+            int sceneItemId, boolean sceneItemEnabled) {
+        super("SetSceneItemEnabled", new Data(canvasUuid, sceneName, sceneUuid, sceneItemId, sceneItemEnabled));
     }
 
     /**
@@ -40,6 +40,12 @@ public class SetSceneItemEnabledRequest extends Request<SetSceneItemEnabledReque
             callSuper = true
     )
     public static class Data implements Serializable {
+        /**
+         * UUID of the canvas the scene is in, if using the sceneName field
+         */
+        @JsonProperty("canvasUuid")
+        private String canvasUuid;
+
         /**
          * Name of the scene the item is in
          */

@@ -24,9 +24,9 @@ public class DuplicateSceneItemRequest extends Request<DuplicateSceneItemRequest
     /**
      * DuplicateSceneItemRequest constructor
      */
-    public DuplicateSceneItemRequest(String sceneName, String sceneUuid, int sceneItemId,
-            String destinationSceneName, String destinationSceneUuid) {
-        super("DuplicateSceneItem", new Data(sceneName, sceneUuid, sceneItemId, destinationSceneName, destinationSceneUuid));
+    public DuplicateSceneItemRequest(String canvasUuid, String sceneName, String sceneUuid,
+            int sceneItemId, String destinationSceneName, String destinationSceneUuid) {
+        super("DuplicateSceneItem", new Data(canvasUuid, sceneName, sceneUuid, sceneItemId, destinationSceneName, destinationSceneUuid));
     }
 
     /**
@@ -40,6 +40,12 @@ public class DuplicateSceneItemRequest extends Request<DuplicateSceneItemRequest
             callSuper = true
     )
     public static class Data implements Serializable {
+        /**
+         * UUID of the canvas the scene is in, if using the sceneName field
+         */
+        @JsonProperty("canvasUuid")
+        private String canvasUuid;
+
         /**
          * Name of the scene the item is in
          */

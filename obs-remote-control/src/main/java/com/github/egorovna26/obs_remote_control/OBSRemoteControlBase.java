@@ -1,6 +1,7 @@
 package com.github.egorovna26.obs_remote_control;
 
 import com.github.egorovna26.obs_remote_control.message.request.Request;
+import com.github.egorovna26.obs_remote_control.message.request.canvases.GetCanvasListRequest;
 import com.github.egorovna26.obs_remote_control.message.request.config.CreateProfileRequest;
 import com.github.egorovna26.obs_remote_control.message.request.config.CreateSceneCollectionRequest;
 import com.github.egorovna26.obs_remote_control.message.request.config.GetPersistentDataRequest;
@@ -148,6 +149,7 @@ import com.github.egorovna26.obs_remote_control.message.request.ui.OpenSourcePro
 import com.github.egorovna26.obs_remote_control.message.request.ui.OpenVideoMixProjectorRequest;
 import com.github.egorovna26.obs_remote_control.message.request.ui.SetStudioModeEnabledRequest;
 import com.github.egorovna26.obs_remote_control.message.requestresponse.RequestResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.canvases.GetCanvasListResponse;
 import com.github.egorovna26.obs_remote_control.message.requestresponse.config.CreateProfileResponse;
 import com.github.egorovna26.obs_remote_control.message.requestresponse.config.CreateSceneCollectionResponse;
 import com.github.egorovna26.obs_remote_control.message.requestresponse.config.GetPersistentDataResponse;
@@ -310,6 +312,13 @@ public abstract class OBSRemoteControlBase {
     protected final OBSRemoteSession session = new OBSRemoteSession();
 
     /**
+     * Gets an array of canvases in OBS.
+     */
+    public GetCanvasListResponse getCanvasList() {
+        return send(new GetCanvasListRequest());
+    }
+
+    /**
      * Gets the value of a "slot" from the selected persistent data realm.
      */
     public GetPersistentDataResponse getPersistentData(String realm, String slotName) {
@@ -455,8 +464,9 @@ public abstract class OBSRemoteControlBase {
     /**
      * Gets an array of all of a source's filters.
      */
-    public GetSourceFilterListResponse getSourceFilterList(String sourceName, String sourceUuid) {
-        return send(new GetSourceFilterListRequest(sourceName, sourceUuid));
+    public GetSourceFilterListResponse getSourceFilterList(String canvasUuid, String sourceName,
+            String sourceUuid) {
+        return send(new GetSourceFilterListRequest(canvasUuid, sourceName, sourceUuid));
     }
 
     /**
@@ -470,57 +480,58 @@ public abstract class OBSRemoteControlBase {
     /**
      * Creates a new filter, adding it to the specified source.
      */
-    public CreateSourceFilterResponse createSourceFilter(String sourceName, String sourceUuid,
-            String filterName, String filterKind, Object filterSettings) {
-        return send(new CreateSourceFilterRequest(sourceName, sourceUuid, filterName, filterKind, filterSettings));
+    public CreateSourceFilterResponse createSourceFilter(String canvasUuid, String sourceName,
+            String sourceUuid, String filterName, String filterKind, Object filterSettings) {
+        return send(new CreateSourceFilterRequest(canvasUuid, sourceName, sourceUuid, filterName, filterKind, filterSettings));
     }
 
     /**
      * Removes a filter from a source.
      */
-    public RemoveSourceFilterResponse removeSourceFilter(String sourceName, String sourceUuid,
-            String filterName) {
-        return send(new RemoveSourceFilterRequest(sourceName, sourceUuid, filterName));
+    public RemoveSourceFilterResponse removeSourceFilter(String canvasUuid, String sourceName,
+            String sourceUuid, String filterName) {
+        return send(new RemoveSourceFilterRequest(canvasUuid, sourceName, sourceUuid, filterName));
     }
 
     /**
      * Sets the name of a source filter (rename).
      */
-    public SetSourceFilterNameResponse setSourceFilterName(String sourceName, String sourceUuid,
-            String filterName, String newFilterName) {
-        return send(new SetSourceFilterNameRequest(sourceName, sourceUuid, filterName, newFilterName));
+    public SetSourceFilterNameResponse setSourceFilterName(String canvasUuid, String sourceName,
+            String sourceUuid, String filterName, String newFilterName) {
+        return send(new SetSourceFilterNameRequest(canvasUuid, sourceName, sourceUuid, filterName, newFilterName));
     }
 
     /**
      * Gets the info for a specific source filter.
      */
-    public GetSourceFilterResponse getSourceFilter(String sourceName, String sourceUuid,
-            String filterName) {
-        return send(new GetSourceFilterRequest(sourceName, sourceUuid, filterName));
+    public GetSourceFilterResponse getSourceFilter(String canvasUuid, String sourceName,
+            String sourceUuid, String filterName) {
+        return send(new GetSourceFilterRequest(canvasUuid, sourceName, sourceUuid, filterName));
     }
 
     /**
      * Sets the index position of a filter on a source.
      */
-    public SetSourceFilterIndexResponse setSourceFilterIndex(String sourceName, String sourceUuid,
-            String filterName, int filterIndex) {
-        return send(new SetSourceFilterIndexRequest(sourceName, sourceUuid, filterName, filterIndex));
+    public SetSourceFilterIndexResponse setSourceFilterIndex(String canvasUuid, String sourceName,
+            String sourceUuid, String filterName, int filterIndex) {
+        return send(new SetSourceFilterIndexRequest(canvasUuid, sourceName, sourceUuid, filterName, filterIndex));
     }
 
     /**
      * Sets the settings of a source filter.
      */
-    public SetSourceFilterSettingsResponse setSourceFilterSettings(String sourceName,
-            String sourceUuid, String filterName, Object filterSettings, boolean overlay) {
-        return send(new SetSourceFilterSettingsRequest(sourceName, sourceUuid, filterName, filterSettings, overlay));
+    public SetSourceFilterSettingsResponse setSourceFilterSettings(String canvasUuid,
+            String sourceName, String sourceUuid, String filterName, Object filterSettings,
+            boolean overlay) {
+        return send(new SetSourceFilterSettingsRequest(canvasUuid, sourceName, sourceUuid, filterName, filterSettings, overlay));
     }
 
     /**
      * Sets the enable state of a source filter.
      */
-    public SetSourceFilterEnabledResponse setSourceFilterEnabled(String sourceName,
-            String sourceUuid, String filterName, boolean filterEnabled) {
-        return send(new SetSourceFilterEnabledRequest(sourceName, sourceUuid, filterName, filterEnabled));
+    public SetSourceFilterEnabledResponse setSourceFilterEnabled(String canvasUuid,
+            String sourceName, String sourceUuid, String filterName, boolean filterEnabled) {
+        return send(new SetSourceFilterEnabledRequest(canvasUuid, sourceName, sourceUuid, filterName, filterEnabled));
     }
 
     /**
@@ -614,9 +625,9 @@ public abstract class OBSRemoteControlBase {
     /**
      * Creates a new input, adding it as a scene item to the specified scene.
      */
-    public CreateInputResponse createInput(String sceneName, String sceneUuid, String inputName,
-            String inputKind, Object inputSettings, boolean sceneItemEnabled) {
-        return send(new CreateInputRequest(sceneName, sceneUuid, inputName, inputKind, inputSettings, sceneItemEnabled));
+    public CreateInputResponse createInput(String canvasUuid, String sceneName, String sceneUuid,
+            String inputName, String inputKind, Object inputSettings, boolean sceneItemEnabled) {
+        return send(new CreateInputRequest(canvasUuid, sceneName, sceneUuid, inputName, inputKind, inputSettings, sceneItemEnabled));
     }
 
     /**
@@ -1083,8 +1094,9 @@ public abstract class OBSRemoteControlBase {
      *
      * Scenes only
      */
-    public GetSceneItemListResponse getSceneItemList(String sceneName, String sceneUuid) {
-        return send(new GetSceneItemListRequest(sceneName, sceneUuid));
+    public GetSceneItemListResponse getSceneItemList(String canvasUuid, String sceneName,
+            String sceneUuid) {
+        return send(new GetSceneItemListRequest(canvasUuid, sceneName, sceneUuid));
     }
 
     /**
@@ -1094,8 +1106,9 @@ public abstract class OBSRemoteControlBase {
      *
      * Groups only
      */
-    public GetGroupSceneItemListResponse getGroupSceneItemList(String sceneName, String sceneUuid) {
-        return send(new GetGroupSceneItemListRequest(sceneName, sceneUuid));
+    public GetGroupSceneItemListResponse getGroupSceneItemList(String canvasUuid, String sceneName,
+            String sceneUuid) {
+        return send(new GetGroupSceneItemListRequest(canvasUuid, sceneName, sceneUuid));
     }
 
     /**
@@ -1103,17 +1116,17 @@ public abstract class OBSRemoteControlBase {
      *
      * Scenes and Groups
      */
-    public GetSceneItemIdResponse getSceneItemId(String sceneName, String sceneUuid,
-            String sourceName, int searchOffset) {
-        return send(new GetSceneItemIdRequest(sceneName, sceneUuid, sourceName, searchOffset));
+    public GetSceneItemIdResponse getSceneItemId(String canvasUuid, String sceneName,
+            String sceneUuid, String sourceName, int searchOffset) {
+        return send(new GetSceneItemIdRequest(canvasUuid, sceneName, sceneUuid, sourceName, searchOffset));
     }
 
     /**
      * Gets the source associated with a scene item.
      */
-    public GetSceneItemSourceResponse getSceneItemSource(String sceneName, String sceneUuid,
-            int sceneItemId) {
-        return send(new GetSceneItemSourceRequest(sceneName, sceneUuid, sceneItemId));
+    public GetSceneItemSourceResponse getSceneItemSource(String canvasUuid, String sceneName,
+            String sceneUuid, int sceneItemId) {
+        return send(new GetSceneItemSourceRequest(canvasUuid, sceneName, sceneUuid, sceneItemId));
     }
 
     /**
@@ -1121,9 +1134,9 @@ public abstract class OBSRemoteControlBase {
      *
      * Scenes only
      */
-    public CreateSceneItemResponse createSceneItem(String sceneName, String sceneUuid,
-            String sourceName, String sourceUuid, boolean sceneItemEnabled) {
-        return send(new CreateSceneItemRequest(sceneName, sceneUuid, sourceName, sourceUuid, sceneItemEnabled));
+    public CreateSceneItemResponse createSceneItem(String canvasUuid, String sceneName,
+            String sceneUuid, String sourceName, String sourceUuid, boolean sceneItemEnabled) {
+        return send(new CreateSceneItemRequest(canvasUuid, sceneName, sceneUuid, sourceName, sourceUuid, sceneItemEnabled));
     }
 
     /**
@@ -1131,9 +1144,9 @@ public abstract class OBSRemoteControlBase {
      *
      * Scenes only
      */
-    public RemoveSceneItemResponse removeSceneItem(String sceneName, String sceneUuid,
-            int sceneItemId) {
-        return send(new RemoveSceneItemRequest(sceneName, sceneUuid, sceneItemId));
+    public RemoveSceneItemResponse removeSceneItem(String canvasUuid, String sceneName,
+            String sceneUuid, int sceneItemId) {
+        return send(new RemoveSceneItemRequest(canvasUuid, sceneName, sceneUuid, sceneItemId));
     }
 
     /**
@@ -1141,9 +1154,10 @@ public abstract class OBSRemoteControlBase {
      *
      * Scenes only
      */
-    public DuplicateSceneItemResponse duplicateSceneItem(String sceneName, String sceneUuid,
-            int sceneItemId, String destinationSceneName, String destinationSceneUuid) {
-        return send(new DuplicateSceneItemRequest(sceneName, sceneUuid, sceneItemId, destinationSceneName, destinationSceneUuid));
+    public DuplicateSceneItemResponse duplicateSceneItem(String canvasUuid, String sceneName,
+            String sceneUuid, int sceneItemId, String destinationSceneName,
+            String destinationSceneUuid) {
+        return send(new DuplicateSceneItemRequest(canvasUuid, sceneName, sceneUuid, sceneItemId, destinationSceneName, destinationSceneUuid));
     }
 
     /**
@@ -1151,17 +1165,17 @@ public abstract class OBSRemoteControlBase {
      *
      * Scenes and Groups
      */
-    public GetSceneItemTransformResponse getSceneItemTransform(String sceneName, String sceneUuid,
-            int sceneItemId) {
-        return send(new GetSceneItemTransformRequest(sceneName, sceneUuid, sceneItemId));
+    public GetSceneItemTransformResponse getSceneItemTransform(String canvasUuid, String sceneName,
+            String sceneUuid, int sceneItemId) {
+        return send(new GetSceneItemTransformRequest(canvasUuid, sceneName, sceneUuid, sceneItemId));
     }
 
     /**
      * Sets the transform and crop info of a scene item.
      */
-    public SetSceneItemTransformResponse setSceneItemTransform(String sceneName, String sceneUuid,
-            int sceneItemId, Object sceneItemTransform) {
-        return send(new SetSceneItemTransformRequest(sceneName, sceneUuid, sceneItemId, sceneItemTransform));
+    public SetSceneItemTransformResponse setSceneItemTransform(String canvasUuid, String sceneName,
+            String sceneUuid, int sceneItemId, Object sceneItemTransform) {
+        return send(new SetSceneItemTransformRequest(canvasUuid, sceneName, sceneUuid, sceneItemId, sceneItemTransform));
     }
 
     /**
@@ -1169,9 +1183,9 @@ public abstract class OBSRemoteControlBase {
      *
      * Scenes and Groups
      */
-    public GetSceneItemEnabledResponse getSceneItemEnabled(String sceneName, String sceneUuid,
-            int sceneItemId) {
-        return send(new GetSceneItemEnabledRequest(sceneName, sceneUuid, sceneItemId));
+    public GetSceneItemEnabledResponse getSceneItemEnabled(String canvasUuid, String sceneName,
+            String sceneUuid, int sceneItemId) {
+        return send(new GetSceneItemEnabledRequest(canvasUuid, sceneName, sceneUuid, sceneItemId));
     }
 
     /**
@@ -1179,9 +1193,9 @@ public abstract class OBSRemoteControlBase {
      *
      * Scenes and Groups
      */
-    public SetSceneItemEnabledResponse setSceneItemEnabled(String sceneName, String sceneUuid,
-            int sceneItemId, boolean sceneItemEnabled) {
-        return send(new SetSceneItemEnabledRequest(sceneName, sceneUuid, sceneItemId, sceneItemEnabled));
+    public SetSceneItemEnabledResponse setSceneItemEnabled(String canvasUuid, String sceneName,
+            String sceneUuid, int sceneItemId, boolean sceneItemEnabled) {
+        return send(new SetSceneItemEnabledRequest(canvasUuid, sceneName, sceneUuid, sceneItemId, sceneItemEnabled));
     }
 
     /**
@@ -1189,9 +1203,9 @@ public abstract class OBSRemoteControlBase {
      *
      * Scenes and Groups
      */
-    public GetSceneItemLockedResponse getSceneItemLocked(String sceneName, String sceneUuid,
-            int sceneItemId) {
-        return send(new GetSceneItemLockedRequest(sceneName, sceneUuid, sceneItemId));
+    public GetSceneItemLockedResponse getSceneItemLocked(String canvasUuid, String sceneName,
+            String sceneUuid, int sceneItemId) {
+        return send(new GetSceneItemLockedRequest(canvasUuid, sceneName, sceneUuid, sceneItemId));
     }
 
     /**
@@ -1199,9 +1213,9 @@ public abstract class OBSRemoteControlBase {
      *
      * Scenes and Group
      */
-    public SetSceneItemLockedResponse setSceneItemLocked(String sceneName, String sceneUuid,
-            int sceneItemId, boolean sceneItemLocked) {
-        return send(new SetSceneItemLockedRequest(sceneName, sceneUuid, sceneItemId, sceneItemLocked));
+    public SetSceneItemLockedResponse setSceneItemLocked(String canvasUuid, String sceneName,
+            String sceneUuid, int sceneItemId, boolean sceneItemLocked) {
+        return send(new SetSceneItemLockedRequest(canvasUuid, sceneName, sceneUuid, sceneItemId, sceneItemLocked));
     }
 
     /**
@@ -1211,9 +1225,9 @@ public abstract class OBSRemoteControlBase {
      *
      * Scenes and Groups
      */
-    public GetSceneItemIndexResponse getSceneItemIndex(String sceneName, String sceneUuid,
-            int sceneItemId) {
-        return send(new GetSceneItemIndexRequest(sceneName, sceneUuid, sceneItemId));
+    public GetSceneItemIndexResponse getSceneItemIndex(String canvasUuid, String sceneName,
+            String sceneUuid, int sceneItemId) {
+        return send(new GetSceneItemIndexRequest(canvasUuid, sceneName, sceneUuid, sceneItemId));
     }
 
     /**
@@ -1221,9 +1235,9 @@ public abstract class OBSRemoteControlBase {
      *
      * Scenes and Groups
      */
-    public SetSceneItemIndexResponse setSceneItemIndex(String sceneName, String sceneUuid,
-            int sceneItemId, int sceneItemIndex) {
-        return send(new SetSceneItemIndexRequest(sceneName, sceneUuid, sceneItemId, sceneItemIndex));
+    public SetSceneItemIndexResponse setSceneItemIndex(String canvasUuid, String sceneName,
+            String sceneUuid, int sceneItemId, int sceneItemIndex) {
+        return send(new SetSceneItemIndexRequest(canvasUuid, sceneName, sceneUuid, sceneItemId, sceneItemIndex));
     }
 
     /**
@@ -1241,9 +1255,9 @@ public abstract class OBSRemoteControlBase {
      *
      * Scenes and Groups
      */
-    public GetSceneItemBlendModeResponse getSceneItemBlendMode(String sceneName, String sceneUuid,
-            int sceneItemId) {
-        return send(new GetSceneItemBlendModeRequest(sceneName, sceneUuid, sceneItemId));
+    public GetSceneItemBlendModeResponse getSceneItemBlendMode(String canvasUuid, String sceneName,
+            String sceneUuid, int sceneItemId) {
+        return send(new GetSceneItemBlendModeRequest(canvasUuid, sceneName, sceneUuid, sceneItemId));
     }
 
     /**
@@ -1251,16 +1265,16 @@ public abstract class OBSRemoteControlBase {
      *
      * Scenes and Groups
      */
-    public SetSceneItemBlendModeResponse setSceneItemBlendMode(String sceneName, String sceneUuid,
-            int sceneItemId, String sceneItemBlendMode) {
-        return send(new SetSceneItemBlendModeRequest(sceneName, sceneUuid, sceneItemId, sceneItemBlendMode));
+    public SetSceneItemBlendModeResponse setSceneItemBlendMode(String canvasUuid, String sceneName,
+            String sceneUuid, int sceneItemId, String sceneItemBlendMode) {
+        return send(new SetSceneItemBlendModeRequest(canvasUuid, sceneName, sceneUuid, sceneItemId, sceneItemBlendMode));
     }
 
     /**
-     * Gets an array of all scenes in OBS.
+     * Gets an array of scenes in OBS.
      */
-    public GetSceneListResponse getSceneList() {
-        return send(new GetSceneListRequest());
+    public GetSceneListResponse getSceneList(String canvasUuid) {
+        return send(new GetSceneListRequest(canvasUuid));
     }
 
     /**
@@ -1275,7 +1289,9 @@ public abstract class OBSRemoteControlBase {
     /**
      * Gets the current program scene.
      *
-     * Note: This request is slated to have the `currentProgram`-prefixed fields removed from in an upcoming RPC version.
+     * Note 1: This request is slated to have the `currentProgram`-prefixed fields removed from in an upcoming RPC version.
+     *
+     * Note 2: Canvases do not have any concept of a program or preview scene, so this request does not support canvases.
      */
     public GetCurrentProgramSceneResponse getCurrentProgramScene() {
         return send(new GetCurrentProgramSceneRequest());
@@ -1313,23 +1329,23 @@ public abstract class OBSRemoteControlBase {
     /**
      * Creates a new scene in OBS.
      */
-    public CreateSceneResponse createScene(String sceneName) {
-        return send(new CreateSceneRequest(sceneName));
+    public CreateSceneResponse createScene(String canvasUuid, String sceneName) {
+        return send(new CreateSceneRequest(canvasUuid, sceneName));
     }
 
     /**
      * Removes a scene from OBS.
      */
-    public RemoveSceneResponse removeScene(String sceneName, String sceneUuid) {
-        return send(new RemoveSceneRequest(sceneName, sceneUuid));
+    public RemoveSceneResponse removeScene(String canvasUuid, String sceneName, String sceneUuid) {
+        return send(new RemoveSceneRequest(canvasUuid, sceneName, sceneUuid));
     }
 
     /**
      * Sets the name of a scene (rename).
      */
-    public SetSceneNameResponse setSceneName(String sceneName, String sceneUuid,
+    public SetSceneNameResponse setSceneName(String canvasUuid, String sceneName, String sceneUuid,
             String newSceneName) {
-        return send(new SetSceneNameRequest(sceneName, sceneUuid, newSceneName));
+        return send(new SetSceneNameRequest(canvasUuid, sceneName, sceneUuid, newSceneName));
     }
 
     /**
@@ -1337,17 +1353,18 @@ public abstract class OBSRemoteControlBase {
      *
      * Note: A transition UUID response field is not currently able to be implemented as of 2024-1-18.
      */
-    public GetSceneSceneTransitionOverrideResponse getSceneSceneTransitionOverride(String sceneName,
-            String sceneUuid) {
-        return send(new GetSceneSceneTransitionOverrideRequest(sceneName, sceneUuid));
+    public GetSceneSceneTransitionOverrideResponse getSceneSceneTransitionOverride(
+            String canvasUuid, String sceneName, String sceneUuid) {
+        return send(new GetSceneSceneTransitionOverrideRequest(canvasUuid, sceneName, sceneUuid));
     }
 
     /**
      * Sets the scene transition overridden for a scene.
      */
-    public SetSceneSceneTransitionOverrideResponse setSceneSceneTransitionOverride(String sceneName,
-            String sceneUuid, String transitionName, int transitionDuration) {
-        return send(new SetSceneSceneTransitionOverrideRequest(sceneName, sceneUuid, transitionName, transitionDuration));
+    public SetSceneSceneTransitionOverrideResponse setSceneSceneTransitionOverride(
+            String canvasUuid, String sceneName, String sceneUuid, String transitionName,
+            int transitionDuration) {
+        return send(new SetSceneSceneTransitionOverrideRequest(canvasUuid, sceneName, sceneUuid, transitionName, transitionDuration));
     }
 
     /**
@@ -1355,8 +1372,9 @@ public abstract class OBSRemoteControlBase {
      *
      * **Compatible with inputs and scenes.**
      */
-    public GetSourceActiveResponse getSourceActive(String sourceName, String sourceUuid) {
-        return send(new GetSourceActiveRequest(sourceName, sourceUuid));
+    public GetSourceActiveResponse getSourceActive(String canvasUuid, String sourceName,
+            String sourceUuid) {
+        return send(new GetSourceActiveRequest(canvasUuid, sourceName, sourceUuid));
     }
 
     /**
@@ -1367,9 +1385,10 @@ public abstract class OBSRemoteControlBase {
      *
      * **Compatible with inputs and scenes.**
      */
-    public GetSourceScreenshotResponse getSourceScreenshot(String sourceName, String sourceUuid,
-            String imageFormat, int imageWidth, int imageHeight, int imageCompressionQuality) {
-        return send(new GetSourceScreenshotRequest(sourceName, sourceUuid, imageFormat, imageWidth, imageHeight, imageCompressionQuality));
+    public GetSourceScreenshotResponse getSourceScreenshot(String canvasUuid, String sourceName,
+            String sourceUuid, String imageFormat, int imageWidth, int imageHeight,
+            int imageCompressionQuality) {
+        return send(new GetSourceScreenshotRequest(canvasUuid, sourceName, sourceUuid, imageFormat, imageWidth, imageHeight, imageCompressionQuality));
     }
 
     /**
@@ -1380,10 +1399,10 @@ public abstract class OBSRemoteControlBase {
      *
      * **Compatible with inputs and scenes.**
      */
-    public SaveSourceScreenshotResponse saveSourceScreenshot(String sourceName, String sourceUuid,
-            String imageFormat, String imageFilePath, int imageWidth, int imageHeight,
-            int imageCompressionQuality) {
-        return send(new SaveSourceScreenshotRequest(sourceName, sourceUuid, imageFormat, imageFilePath, imageWidth, imageHeight, imageCompressionQuality));
+    public SaveSourceScreenshotResponse saveSourceScreenshot(String canvasUuid, String sourceName,
+            String sourceUuid, String imageFormat, String imageFilePath, int imageWidth,
+            int imageHeight, int imageCompressionQuality) {
+        return send(new SaveSourceScreenshotRequest(canvasUuid, sourceName, sourceUuid, imageFormat, imageFilePath, imageWidth, imageHeight, imageCompressionQuality));
     }
 
     /**
@@ -1560,9 +1579,9 @@ public abstract class OBSRemoteControlBase {
      *
      * Note: This request serves to provide feature parity with 4.x. It is very likely to be changed/deprecated in a future release.
      */
-    public OpenSourceProjectorResponse openSourceProjector(String sourceName, String sourceUuid,
-            int monitorIndex, String projectorGeometry) {
-        return send(new OpenSourceProjectorRequest(sourceName, sourceUuid, monitorIndex, projectorGeometry));
+    public OpenSourceProjectorResponse openSourceProjector(String canvasUuid, String sourceName,
+            String sourceUuid, int monitorIndex, String projectorGeometry) {
+        return send(new OpenSourceProjectorRequest(canvasUuid, sourceName, sourceUuid, monitorIndex, projectorGeometry));
     }
 
     /**

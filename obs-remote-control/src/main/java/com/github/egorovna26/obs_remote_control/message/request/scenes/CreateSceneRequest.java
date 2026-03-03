@@ -22,8 +22,8 @@ public class CreateSceneRequest extends Request<CreateSceneRequest.Data> {
     /**
      * CreateSceneRequest constructor
      */
-    public CreateSceneRequest(String sceneName) {
-        super("CreateScene", new Data(sceneName));
+    public CreateSceneRequest(String canvasUuid, String sceneName) {
+        super("CreateScene", new Data(canvasUuid, sceneName));
     }
 
     /**
@@ -37,6 +37,12 @@ public class CreateSceneRequest extends Request<CreateSceneRequest.Data> {
             callSuper = true
     )
     public static class Data implements Serializable {
+        /**
+         * UUID of the canvas to create the new scene in. Leave default to assume main canvas
+         */
+        @JsonProperty("canvasUuid")
+        private String canvasUuid;
+
         /**
          * Name for the new scene
          */

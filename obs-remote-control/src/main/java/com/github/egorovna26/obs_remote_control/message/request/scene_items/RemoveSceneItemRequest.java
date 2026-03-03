@@ -24,8 +24,9 @@ public class RemoveSceneItemRequest extends Request<RemoveSceneItemRequest.Data>
     /**
      * RemoveSceneItemRequest constructor
      */
-    public RemoveSceneItemRequest(String sceneName, String sceneUuid, int sceneItemId) {
-        super("RemoveSceneItem", new Data(sceneName, sceneUuid, sceneItemId));
+    public RemoveSceneItemRequest(String canvasUuid, String sceneName, String sceneUuid,
+            int sceneItemId) {
+        super("RemoveSceneItem", new Data(canvasUuid, sceneName, sceneUuid, sceneItemId));
     }
 
     /**
@@ -39,6 +40,12 @@ public class RemoveSceneItemRequest extends Request<RemoveSceneItemRequest.Data>
             callSuper = true
     )
     public static class Data implements Serializable {
+        /**
+         * UUID of the canvas the scene is in, if using the sceneName field
+         */
+        @JsonProperty("canvasUuid")
+        private String canvasUuid;
+
         /**
          * Name of the scene the item is in
          */

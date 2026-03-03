@@ -1,5 +1,6 @@
 package com.github.egorovna26.obs_remote_control.message.request;
 
+import com.github.egorovna26.obs_remote_control.message.request.canvases.GetCanvasListRequest;
 import com.github.egorovna26.obs_remote_control.message.request.config.CreateProfileRequest;
 import com.github.egorovna26.obs_remote_control.message.request.config.CreateSceneCollectionRequest;
 import com.github.egorovna26.obs_remote_control.message.request.config.GetPersistentDataRequest;
@@ -147,6 +148,7 @@ import com.github.egorovna26.obs_remote_control.message.request.ui.OpenSourcePro
 import com.github.egorovna26.obs_remote_control.message.request.ui.OpenVideoMixProjectorRequest;
 import com.github.egorovna26.obs_remote_control.message.request.ui.SetStudioModeEnabledRequest;
 import com.github.egorovna26.obs_remote_control.message.requestresponse.RequestResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.canvases.GetCanvasListResponse;
 import com.github.egorovna26.obs_remote_control.message.requestresponse.config.CreateProfileResponse;
 import com.github.egorovna26.obs_remote_control.message.requestresponse.config.CreateSceneCollectionResponse;
 import com.github.egorovna26.obs_remote_control.message.requestresponse.config.GetPersistentDataResponse;
@@ -306,6 +308,11 @@ import org.apache.commons.lang3.StringUtils;
 @RequiredArgsConstructor
 @Getter
 public enum RequestType implements Serializable {
+    /**
+     * Gets an array of canvases in OBS.
+     */
+    GET_CANVAS_LIST("GetCanvasList", GetCanvasListRequest.class, GetCanvasListResponse.class),
+
     /**
      * Gets the value of a "slot" from the selected persistent data realm.
      */
@@ -984,7 +991,7 @@ public enum RequestType implements Serializable {
     SET_SCENE_ITEM_BLEND_MODE("SetSceneItemBlendMode", SetSceneItemBlendModeRequest.class, SetSceneItemBlendModeResponse.class),
 
     /**
-     * Gets an array of all scenes in OBS.
+     * Gets an array of scenes in OBS.
      */
     GET_SCENE_LIST("GetSceneList", GetSceneListRequest.class, GetSceneListResponse.class),
 
@@ -998,7 +1005,9 @@ public enum RequestType implements Serializable {
     /**
      * Gets the current program scene.
      *
-     * Note: This request is slated to have the `currentProgram`-prefixed fields removed from in an upcoming RPC version.
+     * Note 1: This request is slated to have the `currentProgram`-prefixed fields removed from in an upcoming RPC version.
+     *
+     * Note 2: Canvases do not have any concept of a program or preview scene, so this request does not support canvases.
      */
     GET_CURRENT_PROGRAM_SCENE("GetCurrentProgramScene", GetCurrentProgramSceneRequest.class, GetCurrentProgramSceneResponse.class),
 

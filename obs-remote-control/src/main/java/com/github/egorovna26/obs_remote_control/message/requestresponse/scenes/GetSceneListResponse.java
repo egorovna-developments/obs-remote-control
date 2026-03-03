@@ -12,7 +12,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * Gets an array of all scenes in OBS.
+ * Gets an array of scenes in OBS.
  */
 @NoArgsConstructor
 @Getter
@@ -22,28 +22,28 @@ import lombok.ToString;
 )
 public class GetSceneListResponse extends RequestResponse<GetSceneListResponse.Data> {
     /**
-     * @return Current program scene name. Can be `null` if internal state desync
+     * @return Current program scene name. Can be `null` if non-main canvas or internal state desync
      */
     public String getCurrentProgramSceneName() {
         return getData().getResponseData().getCurrentProgramSceneName();
     }
 
     /**
-     * @return Current program scene UUID. Can be `null` if internal state desync
+     * @return Current program scene UUID. Can be `null` if non-main canvas or internal state desync
      */
     public String getCurrentProgramSceneUuid() {
         return getData().getResponseData().getCurrentProgramSceneUuid();
     }
 
     /**
-     * @return Current preview scene name. `null` if not in studio mode
+     * @return Current preview scene name. `null` if not in studio mode or non-main canvas
      */
     public String getCurrentPreviewSceneName() {
         return getData().getResponseData().getCurrentPreviewSceneName();
     }
 
     /**
-     * @return Current preview scene UUID. `null` if not in studio mode
+     * @return Current preview scene UUID. `null` if not in studio mode or non-main canvas
      */
     public String getCurrentPreviewSceneUuid() {
         return getData().getResponseData().getCurrentPreviewSceneUuid();
@@ -68,25 +68,25 @@ public class GetSceneListResponse extends RequestResponse<GetSceneListResponse.D
     )
     public static class Data implements Serializable {
         /**
-         * Current program scene name. Can be `null` if internal state desync
+         * Current program scene name. Can be `null` if non-main canvas or internal state desync
          */
         @JsonProperty("currentProgramSceneName")
         private String currentProgramSceneName;
 
         /**
-         * Current program scene UUID. Can be `null` if internal state desync
+         * Current program scene UUID. Can be `null` if non-main canvas or internal state desync
          */
         @JsonProperty("currentProgramSceneUuid")
         private String currentProgramSceneUuid;
 
         /**
-         * Current preview scene name. `null` if not in studio mode
+         * Current preview scene name. `null` if not in studio mode or non-main canvas
          */
         @JsonProperty("currentPreviewSceneName")
         private String currentPreviewSceneName;
 
         /**
-         * Current preview scene UUID. `null` if not in studio mode
+         * Current preview scene UUID. `null` if not in studio mode or non-main canvas
          */
         @JsonProperty("currentPreviewSceneUuid")
         private String currentPreviewSceneUuid;

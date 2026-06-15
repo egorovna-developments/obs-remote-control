@@ -1,6 +1,6 @@
 allprojects {
     group = 'com.github.egorovna26.obs-remote-control'
-    version = '5.7.1'
+    version = '5.7.3'
 }
 
 rootProject.tasks.register('version') {

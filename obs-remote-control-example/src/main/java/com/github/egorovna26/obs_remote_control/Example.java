@@ -32,6 +32,7 @@ public class Example {
             obsRemoteControl.addEventListener(CurrentProgramSceneChanged.class, currentProgramSceneChanged -> {
                 log.info(currentProgramSceneChanged.toString());
             });
+            obsRemoteControl.setTimeout(1000);
             obsRemoteControl.connect();
             TimeUnit.SECONDS.sleep(5);
             GetVersionResponse version = obsRemoteControl.getVersion();

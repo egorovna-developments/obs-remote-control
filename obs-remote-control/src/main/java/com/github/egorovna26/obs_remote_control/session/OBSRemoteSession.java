@@ -171,7 +171,7 @@ public class OBSRemoteSession extends WebSocketListener {
                 String encodedSecret = Base64.getEncoder().encodeToString(secretHash);
                 String resultString = encodedSecret + hello.getChallenge();
                 byte[] resultHash = digest.digest(resultString.getBytes(StandardCharsets.UTF_8));
-                identify = new Identify(hello.getRpcVersion(), Base64.getEncoder().encodeToString(resultHash));
+                identify.setAuthentication(Base64.getEncoder().encodeToString(resultHash));
             } catch (Exception e) {
                 log.error("Authentication error", e);
             }

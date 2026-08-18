@@ -14,16 +14,22 @@ import java.io.Serializable;
 @Setter
 @ToString(callSuper = true)
 public class Identify extends Message {
+    private static int ALL = 983039;
+
     @JsonProperty(value = "d")
     private Data data;
 
     public Identify(int rpcVersion) {
-        this(rpcVersion, null);
+        this(rpcVersion, null, ALL);
     }
 
-    public Identify(int rpcVersion, String authentication) {
+    public Identify(int rpcVersion, String authentication, int eventSubscriptions) {
         super(IDENTIFY);
-        this.data = new Data(rpcVersion, authentication);
+        this.data = new Data(rpcVersion, authentication, eventSubscriptions);
+    }
+
+    public void setAuthentication(String authentication) {
+        getData().setAuthentication(authentication);
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -37,5 +43,7 @@ public class Identify extends Message {
         private int rpcVersion;
         @JsonProperty(value = "authentication")
         private String authentication;
+        @JsonProperty(value = "eventSubscriptions")
+        private int eventSubscriptions;
     }
 }

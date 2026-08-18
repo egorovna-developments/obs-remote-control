@@ -2,46 +2,305 @@ package com.github.egorovna26.obs_remote_control;
 
 import com.github.egorovna26.obs_remote_control.message.request.Request;
 import com.github.egorovna26.obs_remote_control.message.request.canvases.GetCanvasListRequest;
-import com.github.egorovna26.obs_remote_control.message.request.config.*;
-import com.github.egorovna26.obs_remote_control.message.request.filters.*;
-import com.github.egorovna26.obs_remote_control.message.request.general.*;
-import com.github.egorovna26.obs_remote_control.message.request.inputs.*;
+import com.github.egorovna26.obs_remote_control.message.request.config.CreateProfileRequest;
+import com.github.egorovna26.obs_remote_control.message.request.config.CreateSceneCollectionRequest;
+import com.github.egorovna26.obs_remote_control.message.request.config.GetPersistentDataRequest;
+import com.github.egorovna26.obs_remote_control.message.request.config.GetProfileListRequest;
+import com.github.egorovna26.obs_remote_control.message.request.config.GetProfileParameterRequest;
+import com.github.egorovna26.obs_remote_control.message.request.config.GetRecordDirectoryRequest;
+import com.github.egorovna26.obs_remote_control.message.request.config.GetSceneCollectionListRequest;
+import com.github.egorovna26.obs_remote_control.message.request.config.GetStreamServiceSettingsRequest;
+import com.github.egorovna26.obs_remote_control.message.request.config.GetVideoSettingsRequest;
+import com.github.egorovna26.obs_remote_control.message.request.config.RemoveProfileRequest;
+import com.github.egorovna26.obs_remote_control.message.request.config.SetCurrentProfileRequest;
+import com.github.egorovna26.obs_remote_control.message.request.config.SetCurrentSceneCollectionRequest;
+import com.github.egorovna26.obs_remote_control.message.request.config.SetPersistentDataRequest;
+import com.github.egorovna26.obs_remote_control.message.request.config.SetProfileParameterRequest;
+import com.github.egorovna26.obs_remote_control.message.request.config.SetRecordDirectoryRequest;
+import com.github.egorovna26.obs_remote_control.message.request.config.SetStreamServiceSettingsRequest;
+import com.github.egorovna26.obs_remote_control.message.request.config.SetVideoSettingsRequest;
+import com.github.egorovna26.obs_remote_control.message.request.filters.CreateSourceFilterRequest;
+import com.github.egorovna26.obs_remote_control.message.request.filters.GetSourceFilterDefaultSettingsRequest;
+import com.github.egorovna26.obs_remote_control.message.request.filters.GetSourceFilterKindListRequest;
+import com.github.egorovna26.obs_remote_control.message.request.filters.GetSourceFilterListRequest;
+import com.github.egorovna26.obs_remote_control.message.request.filters.GetSourceFilterRequest;
+import com.github.egorovna26.obs_remote_control.message.request.filters.RemoveSourceFilterRequest;
+import com.github.egorovna26.obs_remote_control.message.request.filters.SetSourceFilterEnabledRequest;
+import com.github.egorovna26.obs_remote_control.message.request.filters.SetSourceFilterIndexRequest;
+import com.github.egorovna26.obs_remote_control.message.request.filters.SetSourceFilterNameRequest;
+import com.github.egorovna26.obs_remote_control.message.request.filters.SetSourceFilterSettingsRequest;
+import com.github.egorovna26.obs_remote_control.message.request.general.BroadcastCustomEventRequest;
+import com.github.egorovna26.obs_remote_control.message.request.general.CallVendorRequestRequest;
+import com.github.egorovna26.obs_remote_control.message.request.general.GetHotkeyListRequest;
+import com.github.egorovna26.obs_remote_control.message.request.general.GetStatsRequest;
+import com.github.egorovna26.obs_remote_control.message.request.general.GetVersionRequest;
+import com.github.egorovna26.obs_remote_control.message.request.general.SleepRequest;
+import com.github.egorovna26.obs_remote_control.message.request.general.TriggerHotkeyByKeySequenceRequest;
+import com.github.egorovna26.obs_remote_control.message.request.general.TriggerHotkeyByNameRequest;
+import com.github.egorovna26.obs_remote_control.message.request.inputs.CreateInputRequest;
+import com.github.egorovna26.obs_remote_control.message.request.inputs.GetInputAudioBalanceRequest;
+import com.github.egorovna26.obs_remote_control.message.request.inputs.GetInputAudioMonitorTypeRequest;
+import com.github.egorovna26.obs_remote_control.message.request.inputs.GetInputAudioSyncOffsetRequest;
+import com.github.egorovna26.obs_remote_control.message.request.inputs.GetInputAudioTracksRequest;
+import com.github.egorovna26.obs_remote_control.message.request.inputs.GetInputDefaultSettingsRequest;
+import com.github.egorovna26.obs_remote_control.message.request.inputs.GetInputDeinterlaceFieldOrderRequest;
+import com.github.egorovna26.obs_remote_control.message.request.inputs.GetInputDeinterlaceModeRequest;
+import com.github.egorovna26.obs_remote_control.message.request.inputs.GetInputKindListRequest;
+import com.github.egorovna26.obs_remote_control.message.request.inputs.GetInputListRequest;
+import com.github.egorovna26.obs_remote_control.message.request.inputs.GetInputMuteRequest;
+import com.github.egorovna26.obs_remote_control.message.request.inputs.GetInputPropertiesListPropertyItemsRequest;
+import com.github.egorovna26.obs_remote_control.message.request.inputs.GetInputSettingsRequest;
+import com.github.egorovna26.obs_remote_control.message.request.inputs.GetInputVolumeRequest;
+import com.github.egorovna26.obs_remote_control.message.request.inputs.GetSpecialInputsRequest;
+import com.github.egorovna26.obs_remote_control.message.request.inputs.PressInputPropertiesButtonRequest;
+import com.github.egorovna26.obs_remote_control.message.request.inputs.RemoveInputRequest;
+import com.github.egorovna26.obs_remote_control.message.request.inputs.SetInputAudioBalanceRequest;
+import com.github.egorovna26.obs_remote_control.message.request.inputs.SetInputAudioMonitorTypeRequest;
+import com.github.egorovna26.obs_remote_control.message.request.inputs.SetInputAudioSyncOffsetRequest;
+import com.github.egorovna26.obs_remote_control.message.request.inputs.SetInputAudioTracksRequest;
+import com.github.egorovna26.obs_remote_control.message.request.inputs.SetInputDeinterlaceFieldOrderRequest;
+import com.github.egorovna26.obs_remote_control.message.request.inputs.SetInputDeinterlaceModeRequest;
+import com.github.egorovna26.obs_remote_control.message.request.inputs.SetInputMuteRequest;
+import com.github.egorovna26.obs_remote_control.message.request.inputs.SetInputNameRequest;
+import com.github.egorovna26.obs_remote_control.message.request.inputs.SetInputSettingsRequest;
+import com.github.egorovna26.obs_remote_control.message.request.inputs.SetInputVolumeRequest;
+import com.github.egorovna26.obs_remote_control.message.request.inputs.ToggleInputMuteRequest;
 import com.github.egorovna26.obs_remote_control.message.request.media_inputs.GetMediaInputStatusRequest;
 import com.github.egorovna26.obs_remote_control.message.request.media_inputs.OffsetMediaInputCursorRequest;
 import com.github.egorovna26.obs_remote_control.message.request.media_inputs.SetMediaInputCursorRequest;
 import com.github.egorovna26.obs_remote_control.message.request.media_inputs.TriggerMediaInputActionRequest;
-import com.github.egorovna26.obs_remote_control.message.request.outputs.*;
-import com.github.egorovna26.obs_remote_control.message.request.record.*;
-import com.github.egorovna26.obs_remote_control.message.request.scene_items.*;
-import com.github.egorovna26.obs_remote_control.message.request.scenes.*;
+import com.github.egorovna26.obs_remote_control.message.request.outputs.GetLastReplayBufferReplayRequest;
+import com.github.egorovna26.obs_remote_control.message.request.outputs.GetOutputListRequest;
+import com.github.egorovna26.obs_remote_control.message.request.outputs.GetOutputSettingsRequest;
+import com.github.egorovna26.obs_remote_control.message.request.outputs.GetOutputStatusRequest;
+import com.github.egorovna26.obs_remote_control.message.request.outputs.GetReplayBufferStatusRequest;
+import com.github.egorovna26.obs_remote_control.message.request.outputs.GetVirtualCamStatusRequest;
+import com.github.egorovna26.obs_remote_control.message.request.outputs.SaveReplayBufferRequest;
+import com.github.egorovna26.obs_remote_control.message.request.outputs.SetOutputSettingsRequest;
+import com.github.egorovna26.obs_remote_control.message.request.outputs.StartOutputRequest;
+import com.github.egorovna26.obs_remote_control.message.request.outputs.StartReplayBufferRequest;
+import com.github.egorovna26.obs_remote_control.message.request.outputs.StartVirtualCamRequest;
+import com.github.egorovna26.obs_remote_control.message.request.outputs.StopOutputRequest;
+import com.github.egorovna26.obs_remote_control.message.request.outputs.StopReplayBufferRequest;
+import com.github.egorovna26.obs_remote_control.message.request.outputs.StopVirtualCamRequest;
+import com.github.egorovna26.obs_remote_control.message.request.outputs.ToggleOutputRequest;
+import com.github.egorovna26.obs_remote_control.message.request.outputs.ToggleReplayBufferRequest;
+import com.github.egorovna26.obs_remote_control.message.request.outputs.ToggleVirtualCamRequest;
+import com.github.egorovna26.obs_remote_control.message.request.record.CreateRecordChapterRequest;
+import com.github.egorovna26.obs_remote_control.message.request.record.GetRecordStatusRequest;
+import com.github.egorovna26.obs_remote_control.message.request.record.PauseRecordRequest;
+import com.github.egorovna26.obs_remote_control.message.request.record.ResumeRecordRequest;
+import com.github.egorovna26.obs_remote_control.message.request.record.SplitRecordFileRequest;
+import com.github.egorovna26.obs_remote_control.message.request.record.StartRecordRequest;
+import com.github.egorovna26.obs_remote_control.message.request.record.StopRecordRequest;
+import com.github.egorovna26.obs_remote_control.message.request.record.ToggleRecordPauseRequest;
+import com.github.egorovna26.obs_remote_control.message.request.record.ToggleRecordRequest;
+import com.github.egorovna26.obs_remote_control.message.request.scene_items.CreateSceneItemRequest;
+import com.github.egorovna26.obs_remote_control.message.request.scene_items.DuplicateSceneItemRequest;
+import com.github.egorovna26.obs_remote_control.message.request.scene_items.GetGroupSceneItemListRequest;
+import com.github.egorovna26.obs_remote_control.message.request.scene_items.GetSceneItemBlendModeRequest;
+import com.github.egorovna26.obs_remote_control.message.request.scene_items.GetSceneItemEnabledRequest;
+import com.github.egorovna26.obs_remote_control.message.request.scene_items.GetSceneItemIdRequest;
+import com.github.egorovna26.obs_remote_control.message.request.scene_items.GetSceneItemIndexRequest;
+import com.github.egorovna26.obs_remote_control.message.request.scene_items.GetSceneItemListRequest;
+import com.github.egorovna26.obs_remote_control.message.request.scene_items.GetSceneItemLockedRequest;
+import com.github.egorovna26.obs_remote_control.message.request.scene_items.GetSceneItemSourceRequest;
+import com.github.egorovna26.obs_remote_control.message.request.scene_items.GetSceneItemTransformRequest;
+import com.github.egorovna26.obs_remote_control.message.request.scene_items.RemoveSceneItemRequest;
+import com.github.egorovna26.obs_remote_control.message.request.scene_items.SetSceneItemBlendModeRequest;
+import com.github.egorovna26.obs_remote_control.message.request.scene_items.SetSceneItemEnabledRequest;
+import com.github.egorovna26.obs_remote_control.message.request.scene_items.SetSceneItemIndexRequest;
+import com.github.egorovna26.obs_remote_control.message.request.scene_items.SetSceneItemLockedRequest;
+import com.github.egorovna26.obs_remote_control.message.request.scene_items.SetSceneItemTransformRequest;
+import com.github.egorovna26.obs_remote_control.message.request.scenes.CreateSceneRequest;
+import com.github.egorovna26.obs_remote_control.message.request.scenes.GetCurrentPreviewSceneRequest;
+import com.github.egorovna26.obs_remote_control.message.request.scenes.GetCurrentProgramSceneRequest;
+import com.github.egorovna26.obs_remote_control.message.request.scenes.GetGroupListRequest;
+import com.github.egorovna26.obs_remote_control.message.request.scenes.GetSceneListRequest;
+import com.github.egorovna26.obs_remote_control.message.request.scenes.GetSceneSceneTransitionOverrideRequest;
+import com.github.egorovna26.obs_remote_control.message.request.scenes.RemoveSceneRequest;
+import com.github.egorovna26.obs_remote_control.message.request.scenes.SetCurrentPreviewSceneRequest;
+import com.github.egorovna26.obs_remote_control.message.request.scenes.SetCurrentProgramSceneRequest;
+import com.github.egorovna26.obs_remote_control.message.request.scenes.SetSceneNameRequest;
+import com.github.egorovna26.obs_remote_control.message.request.scenes.SetSceneSceneTransitionOverrideRequest;
 import com.github.egorovna26.obs_remote_control.message.request.sources.GetSourceActiveRequest;
 import com.github.egorovna26.obs_remote_control.message.request.sources.GetSourceScreenshotRequest;
 import com.github.egorovna26.obs_remote_control.message.request.sources.SaveSourceScreenshotRequest;
-import com.github.egorovna26.obs_remote_control.message.request.stream.*;
-import com.github.egorovna26.obs_remote_control.message.request.transitions.*;
-import com.github.egorovna26.obs_remote_control.message.request.ui.*;
+import com.github.egorovna26.obs_remote_control.message.request.stream.GetStreamStatusRequest;
+import com.github.egorovna26.obs_remote_control.message.request.stream.SendStreamCaptionRequest;
+import com.github.egorovna26.obs_remote_control.message.request.stream.StartStreamRequest;
+import com.github.egorovna26.obs_remote_control.message.request.stream.StopStreamRequest;
+import com.github.egorovna26.obs_remote_control.message.request.stream.ToggleStreamRequest;
+import com.github.egorovna26.obs_remote_control.message.request.transitions.GetCurrentSceneTransitionCursorRequest;
+import com.github.egorovna26.obs_remote_control.message.request.transitions.GetCurrentSceneTransitionRequest;
+import com.github.egorovna26.obs_remote_control.message.request.transitions.GetSceneTransitionListRequest;
+import com.github.egorovna26.obs_remote_control.message.request.transitions.GetTransitionKindListRequest;
+import com.github.egorovna26.obs_remote_control.message.request.transitions.SetCurrentSceneTransitionDurationRequest;
+import com.github.egorovna26.obs_remote_control.message.request.transitions.SetCurrentSceneTransitionRequest;
+import com.github.egorovna26.obs_remote_control.message.request.transitions.SetCurrentSceneTransitionSettingsRequest;
+import com.github.egorovna26.obs_remote_control.message.request.transitions.SetTBarPositionRequest;
+import com.github.egorovna26.obs_remote_control.message.request.transitions.TriggerStudioModeTransitionRequest;
+import com.github.egorovna26.obs_remote_control.message.request.ui.GetMonitorListRequest;
+import com.github.egorovna26.obs_remote_control.message.request.ui.GetStudioModeEnabledRequest;
+import com.github.egorovna26.obs_remote_control.message.request.ui.OpenInputFiltersDialogRequest;
+import com.github.egorovna26.obs_remote_control.message.request.ui.OpenInputInteractDialogRequest;
+import com.github.egorovna26.obs_remote_control.message.request.ui.OpenInputPropertiesDialogRequest;
+import com.github.egorovna26.obs_remote_control.message.request.ui.OpenSourceProjectorRequest;
+import com.github.egorovna26.obs_remote_control.message.request.ui.OpenVideoMixProjectorRequest;
+import com.github.egorovna26.obs_remote_control.message.request.ui.SetStudioModeEnabledRequest;
 import com.github.egorovna26.obs_remote_control.message.requestresponse.RequestResponse;
 import com.github.egorovna26.obs_remote_control.message.requestresponse.canvases.GetCanvasListResponse;
-import com.github.egorovna26.obs_remote_control.message.requestresponse.config.*;
-import com.github.egorovna26.obs_remote_control.message.requestresponse.filters.*;
-import com.github.egorovna26.obs_remote_control.message.requestresponse.general.*;
-import com.github.egorovna26.obs_remote_control.message.requestresponse.inputs.*;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.config.CreateProfileResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.config.CreateSceneCollectionResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.config.GetPersistentDataResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.config.GetProfileListResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.config.GetProfileParameterResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.config.GetRecordDirectoryResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.config.GetSceneCollectionListResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.config.GetStreamServiceSettingsResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.config.GetVideoSettingsResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.config.RemoveProfileResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.config.SetCurrentProfileResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.config.SetCurrentSceneCollectionResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.config.SetPersistentDataResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.config.SetProfileParameterResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.config.SetRecordDirectoryResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.config.SetStreamServiceSettingsResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.config.SetVideoSettingsResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.filters.CreateSourceFilterResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.filters.GetSourceFilterDefaultSettingsResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.filters.GetSourceFilterKindListResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.filters.GetSourceFilterListResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.filters.GetSourceFilterResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.filters.RemoveSourceFilterResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.filters.SetSourceFilterEnabledResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.filters.SetSourceFilterIndexResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.filters.SetSourceFilterNameResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.filters.SetSourceFilterSettingsResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.general.BroadcastCustomEventResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.general.CallVendorRequestResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.general.GetHotkeyListResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.general.GetStatsResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.general.GetVersionResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.general.SleepResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.general.TriggerHotkeyByKeySequenceResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.general.TriggerHotkeyByNameResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.inputs.CreateInputResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.inputs.GetInputAudioBalanceResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.inputs.GetInputAudioMonitorTypeResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.inputs.GetInputAudioSyncOffsetResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.inputs.GetInputAudioTracksResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.inputs.GetInputDefaultSettingsResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.inputs.GetInputDeinterlaceFieldOrderResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.inputs.GetInputDeinterlaceModeResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.inputs.GetInputKindListResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.inputs.GetInputListResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.inputs.GetInputMuteResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.inputs.GetInputPropertiesListPropertyItemsResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.inputs.GetInputSettingsResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.inputs.GetInputVolumeResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.inputs.GetSpecialInputsResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.inputs.PressInputPropertiesButtonResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.inputs.RemoveInputResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.inputs.SetInputAudioBalanceResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.inputs.SetInputAudioMonitorTypeResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.inputs.SetInputAudioSyncOffsetResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.inputs.SetInputAudioTracksResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.inputs.SetInputDeinterlaceFieldOrderResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.inputs.SetInputDeinterlaceModeResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.inputs.SetInputMuteResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.inputs.SetInputNameResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.inputs.SetInputSettingsResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.inputs.SetInputVolumeResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.inputs.ToggleInputMuteResponse;
 import com.github.egorovna26.obs_remote_control.message.requestresponse.media_inputs.GetMediaInputStatusResponse;
 import com.github.egorovna26.obs_remote_control.message.requestresponse.media_inputs.OffsetMediaInputCursorResponse;
 import com.github.egorovna26.obs_remote_control.message.requestresponse.media_inputs.SetMediaInputCursorResponse;
 import com.github.egorovna26.obs_remote_control.message.requestresponse.media_inputs.TriggerMediaInputActionResponse;
-import com.github.egorovna26.obs_remote_control.message.requestresponse.outputs.*;
-import com.github.egorovna26.obs_remote_control.message.requestresponse.record.*;
-import com.github.egorovna26.obs_remote_control.message.requestresponse.scene_items.*;
-import com.github.egorovna26.obs_remote_control.message.requestresponse.scenes.*;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.outputs.GetLastReplayBufferReplayResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.outputs.GetOutputListResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.outputs.GetOutputSettingsResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.outputs.GetOutputStatusResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.outputs.GetReplayBufferStatusResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.outputs.GetVirtualCamStatusResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.outputs.SaveReplayBufferResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.outputs.SetOutputSettingsResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.outputs.StartOutputResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.outputs.StartReplayBufferResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.outputs.StartVirtualCamResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.outputs.StopOutputResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.outputs.StopReplayBufferResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.outputs.StopVirtualCamResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.outputs.ToggleOutputResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.outputs.ToggleReplayBufferResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.outputs.ToggleVirtualCamResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.record.CreateRecordChapterResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.record.GetRecordStatusResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.record.PauseRecordResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.record.ResumeRecordResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.record.SplitRecordFileResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.record.StartRecordResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.record.StopRecordResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.record.ToggleRecordPauseResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.record.ToggleRecordResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.scene_items.CreateSceneItemResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.scene_items.DuplicateSceneItemResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.scene_items.GetGroupSceneItemListResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.scene_items.GetSceneItemBlendModeResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.scene_items.GetSceneItemEnabledResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.scene_items.GetSceneItemIdResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.scene_items.GetSceneItemIndexResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.scene_items.GetSceneItemListResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.scene_items.GetSceneItemLockedResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.scene_items.GetSceneItemSourceResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.scene_items.GetSceneItemTransformResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.scene_items.RemoveSceneItemResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.scene_items.SetSceneItemBlendModeResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.scene_items.SetSceneItemEnabledResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.scene_items.SetSceneItemIndexResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.scene_items.SetSceneItemLockedResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.scene_items.SetSceneItemTransformResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.scenes.CreateSceneResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.scenes.GetCurrentPreviewSceneResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.scenes.GetCurrentProgramSceneResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.scenes.GetGroupListResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.scenes.GetSceneListResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.scenes.GetSceneSceneTransitionOverrideResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.scenes.RemoveSceneResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.scenes.SetCurrentPreviewSceneResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.scenes.SetCurrentProgramSceneResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.scenes.SetSceneNameResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.scenes.SetSceneSceneTransitionOverrideResponse;
 import com.github.egorovna26.obs_remote_control.message.requestresponse.sources.GetSourceActiveResponse;
 import com.github.egorovna26.obs_remote_control.message.requestresponse.sources.GetSourceScreenshotResponse;
 import com.github.egorovna26.obs_remote_control.message.requestresponse.sources.SaveSourceScreenshotResponse;
-import com.github.egorovna26.obs_remote_control.message.requestresponse.stream.*;
-import com.github.egorovna26.obs_remote_control.message.requestresponse.transitions.*;
-import com.github.egorovna26.obs_remote_control.message.requestresponse.ui.*;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.stream.GetStreamStatusResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.stream.SendStreamCaptionResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.stream.StartStreamResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.stream.StopStreamResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.stream.ToggleStreamResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.transitions.GetCurrentSceneTransitionCursorResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.transitions.GetCurrentSceneTransitionResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.transitions.GetSceneTransitionListResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.transitions.GetTransitionKindListResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.transitions.SetCurrentSceneTransitionDurationResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.transitions.SetCurrentSceneTransitionResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.transitions.SetCurrentSceneTransitionSettingsResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.transitions.SetTBarPositionResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.transitions.TriggerStudioModeTransitionResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.ui.GetMonitorListResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.ui.GetStudioModeEnabledResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.ui.OpenInputFiltersDialogResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.ui.OpenInputInteractDialogResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.ui.OpenInputPropertiesDialogResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.ui.OpenSourceProjectorResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.ui.OpenVideoMixProjectorResponse;
+import com.github.egorovna26.obs_remote_control.message.requestresponse.ui.SetStudioModeEnabledResponse;
 import com.github.egorovna26.obs_remote_control.session.BlockingConsumer;
 import com.github.egorovna26.obs_remote_control.session.OBSRemoteSession;
+import java.lang.Exception;
+import java.lang.Object;
+import java.lang.String;
 import lombok.CustomLog;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -76,7 +335,7 @@ public abstract class OBSRemoteControlBase {
      * Sets the value of a "slot" from the selected persistent data realm.
      */
     public SetPersistentDataResponse setPersistentData(String realm, String slotName,
-                                                       Object slotValue) {
+            Object slotValue) {
         return send(new SetPersistentDataRequest(realm, slotName, slotValue));
     }
 
@@ -89,7 +348,7 @@ public abstract class OBSRemoteControlBase {
 
     /**
      * Switches to a scene collection.
-     * <p>
+     *
      * Note: This will block until the collection has finished changing.
      */
     public SetCurrentSceneCollectionResponse setCurrentSceneCollection(String sceneCollectionName) {
@@ -98,7 +357,7 @@ public abstract class OBSRemoteControlBase {
 
     /**
      * Creates a new scene collection, switching to it in the process.
-     * <p>
+     *
      * Note: This will block until the collection has finished changing.
      */
     public CreateSceneCollectionResponse createSceneCollection(String sceneCollectionName) {
@@ -137,7 +396,7 @@ public abstract class OBSRemoteControlBase {
      * Gets a parameter from the current profile's configuration.
      */
     public GetProfileParameterResponse getProfileParameter(String parameterCategory,
-                                                           String parameterName) {
+            String parameterName) {
         return send(new GetProfileParameterRequest(parameterCategory, parameterName));
     }
 
@@ -145,13 +404,13 @@ public abstract class OBSRemoteControlBase {
      * Sets the value of a parameter in the current profile's configuration.
      */
     public SetProfileParameterResponse setProfileParameter(String parameterCategory,
-                                                           String parameterName, String parameterValue) {
+            String parameterName, String parameterValue) {
         return send(new SetProfileParameterRequest(parameterCategory, parameterName, parameterValue));
     }
 
     /**
      * Gets the current video settings.
-     * <p>
+     *
      * Note: To get the true FPS value, divide the FPS numerator by the FPS denominator. Example: `60000/1001`
      */
     public GetVideoSettingsResponse getVideoSettings() {
@@ -160,11 +419,11 @@ public abstract class OBSRemoteControlBase {
 
     /**
      * Sets the current video settings.
-     * <p>
+     *
      * Note: Fields must be specified in pairs. For example, you cannot set only `baseWidth` without needing to specify `baseHeight`.
      */
     public SetVideoSettingsResponse setVideoSettings(int fpsNumerator, int fpsDenominator,
-                                                     int baseWidth, int baseHeight, int outputWidth, int outputHeight) {
+            int baseWidth, int baseHeight, int outputWidth, int outputHeight) {
         return send(new SetVideoSettingsRequest(fpsNumerator, fpsDenominator, baseWidth, baseHeight, outputWidth, outputHeight));
     }
 
@@ -177,11 +436,11 @@ public abstract class OBSRemoteControlBase {
 
     /**
      * Sets the current stream service settings (stream destination).
-     * <p>
+     *
      * Note: Simple RTMP settings can be set with type `rtmp_custom` and the settings fields `server` and `key`.
      */
     public SetStreamServiceSettingsResponse setStreamServiceSettings(String streamServiceType,
-                                                                     Object streamServiceSettings) {
+            Object streamServiceSettings) {
         return send(new SetStreamServiceSettingsRequest(streamServiceType, streamServiceSettings));
     }
 
@@ -201,7 +460,7 @@ public abstract class OBSRemoteControlBase {
 
     /**
      * Gets an array of all available source filter kinds.
-     * <p>
+     *
      * Similar to `GetInputKindList`
      */
     public GetSourceFilterKindListResponse getSourceFilterKindList() {
@@ -212,7 +471,7 @@ public abstract class OBSRemoteControlBase {
      * Gets an array of all of a source's filters.
      */
     public GetSourceFilterListResponse getSourceFilterList(String canvasUuid, String sourceName,
-                                                           String sourceUuid) {
+            String sourceUuid) {
         return send(new GetSourceFilterListRequest(canvasUuid, sourceName, sourceUuid));
     }
 
@@ -228,7 +487,7 @@ public abstract class OBSRemoteControlBase {
      * Creates a new filter, adding it to the specified source.
      */
     public CreateSourceFilterResponse createSourceFilter(String canvasUuid, String sourceName,
-                                                         String sourceUuid, String filterName, String filterKind, Object filterSettings) {
+            String sourceUuid, String filterName, String filterKind, Object filterSettings) {
         return send(new CreateSourceFilterRequest(canvasUuid, sourceName, sourceUuid, filterName, filterKind, filterSettings));
     }
 
@@ -236,7 +495,7 @@ public abstract class OBSRemoteControlBase {
      * Removes a filter from a source.
      */
     public RemoveSourceFilterResponse removeSourceFilter(String canvasUuid, String sourceName,
-                                                         String sourceUuid, String filterName) {
+            String sourceUuid, String filterName) {
         return send(new RemoveSourceFilterRequest(canvasUuid, sourceName, sourceUuid, filterName));
     }
 
@@ -244,7 +503,7 @@ public abstract class OBSRemoteControlBase {
      * Sets the name of a source filter (rename).
      */
     public SetSourceFilterNameResponse setSourceFilterName(String canvasUuid, String sourceName,
-                                                           String sourceUuid, String filterName, String newFilterName) {
+            String sourceUuid, String filterName, String newFilterName) {
         return send(new SetSourceFilterNameRequest(canvasUuid, sourceName, sourceUuid, filterName, newFilterName));
     }
 
@@ -252,7 +511,7 @@ public abstract class OBSRemoteControlBase {
      * Gets the info for a specific source filter.
      */
     public GetSourceFilterResponse getSourceFilter(String canvasUuid, String sourceName,
-                                                   String sourceUuid, String filterName) {
+            String sourceUuid, String filterName) {
         return send(new GetSourceFilterRequest(canvasUuid, sourceName, sourceUuid, filterName));
     }
 
@@ -260,7 +519,7 @@ public abstract class OBSRemoteControlBase {
      * Sets the index position of a filter on a source.
      */
     public SetSourceFilterIndexResponse setSourceFilterIndex(String canvasUuid, String sourceName,
-                                                             String sourceUuid, String filterName, int filterIndex) {
+            String sourceUuid, String filterName, int filterIndex) {
         return send(new SetSourceFilterIndexRequest(canvasUuid, sourceName, sourceUuid, filterName, filterIndex));
     }
 
@@ -268,8 +527,8 @@ public abstract class OBSRemoteControlBase {
      * Sets the settings of a source filter.
      */
     public SetSourceFilterSettingsResponse setSourceFilterSettings(String canvasUuid,
-                                                                   String sourceName, String sourceUuid, String filterName, Object filterSettings,
-                                                                   boolean overlay) {
+            String sourceName, String sourceUuid, String filterName, Object filterSettings,
+            boolean overlay) {
         return send(new SetSourceFilterSettingsRequest(canvasUuid, sourceName, sourceUuid, filterName, filterSettings, overlay));
     }
 
@@ -277,7 +536,7 @@ public abstract class OBSRemoteControlBase {
      * Sets the enable state of a source filter.
      */
     public SetSourceFilterEnabledResponse setSourceFilterEnabled(String canvasUuid,
-                                                                 String sourceName, String sourceUuid, String filterName, boolean filterEnabled) {
+            String sourceName, String sourceUuid, String filterName, boolean filterEnabled) {
         return send(new SetSourceFilterEnabledRequest(canvasUuid, sourceName, sourceUuid, filterName, filterEnabled));
     }
 
@@ -304,18 +563,18 @@ public abstract class OBSRemoteControlBase {
 
     /**
      * Call a request registered to a vendor.
-     * <p>
+     *
      * A vendor is a unique name registered by a third-party plugin or script, which allows for custom requests and events to be added to obs-websocket.
      * If a plugin or script implements vendor requests or events, documentation is expected to be provided with them.
      */
     public CallVendorRequestResponse callVendorRequest(String vendorName, String requestType,
-                                                       Object requestData) {
+            Object requestData) {
         return send(new CallVendorRequestRequest(vendorName, requestType, requestData));
     }
 
     /**
      * Gets an array of all hotkey names in OBS.
-     * <p>
+     *
      * Note: Hotkey functionality in obs-websocket comes as-is, and we do not guarantee support if things are broken. In 9/10 usages of hotkey requests, there exists a better, more reliable method via other requests.
      */
     public GetHotkeyListResponse getHotkeyList() {
@@ -324,7 +583,7 @@ public abstract class OBSRemoteControlBase {
 
     /**
      * Triggers a hotkey using its name. See `GetHotkeyList`.
-     * <p>
+     *
      * Note: Hotkey functionality in obs-websocket comes as-is, and we do not guarantee support if things are broken. In 9/10 usages of hotkey requests, there exists a better, more reliable method via other requests.
      */
     public TriggerHotkeyByNameResponse triggerHotkeyByName(String hotkeyName, String contextName) {
@@ -333,11 +592,11 @@ public abstract class OBSRemoteControlBase {
 
     /**
      * Triggers a hotkey using a sequence of keys.
-     * <p>
+     *
      * Note: Hotkey functionality in obs-websocket comes as-is, and we do not guarantee support if things are broken. In 9/10 usages of hotkey requests, there exists a better, more reliable method via other requests.
      */
     public TriggerHotkeyByKeySequenceResponse triggerHotkeyByKeySequence(String keyId,
-                                                                         Object keyModifiers) {
+            Object keyModifiers) {
         return send(new TriggerHotkeyByKeySequenceRequest(keyId, keyModifiers));
     }
 
@@ -373,13 +632,13 @@ public abstract class OBSRemoteControlBase {
      * Creates a new input, adding it as a scene item to the specified scene.
      */
     public CreateInputResponse createInput(String canvasUuid, String sceneName, String sceneUuid,
-                                           String inputName, String inputKind, Object inputSettings, boolean sceneItemEnabled) {
+            String inputName, String inputKind, Object inputSettings, boolean sceneItemEnabled) {
         return send(new CreateInputRequest(canvasUuid, sceneName, sceneUuid, inputName, inputKind, inputSettings, sceneItemEnabled));
     }
 
     /**
      * Removes an existing input.
-     * <p>
+     *
      * Note: Will immediately remove all associated scene items.
      */
     public RemoveInputResponse removeInput(String inputName, String inputUuid) {
@@ -390,7 +649,7 @@ public abstract class OBSRemoteControlBase {
      * Sets the name of an input (rename).
      */
     public SetInputNameResponse setInputName(String inputName, String inputUuid,
-                                             String newInputName) {
+            String newInputName) {
         return send(new SetInputNameRequest(inputName, inputUuid, newInputName));
     }
 
@@ -403,7 +662,7 @@ public abstract class OBSRemoteControlBase {
 
     /**
      * Gets the settings of an input.
-     * <p>
+     *
      * Note: Does not include defaults. To create the entire settings object, overlay `inputSettings` over the `defaultInputSettings` provided by `GetInputDefaultSettings`.
      */
     public GetInputSettingsResponse getInputSettings(String inputName, String inputUuid) {
@@ -414,7 +673,7 @@ public abstract class OBSRemoteControlBase {
      * Sets the settings of an input.
      */
     public SetInputSettingsResponse setInputSettings(String inputName, String inputUuid,
-                                                     Object inputSettings, boolean overlay) {
+            Object inputSettings, boolean overlay) {
         return send(new SetInputSettingsRequest(inputName, inputUuid, inputSettings, overlay));
     }
 
@@ -429,7 +688,7 @@ public abstract class OBSRemoteControlBase {
      * Sets the audio mute state of an input.
      */
     public SetInputMuteResponse setInputMute(String inputName, String inputUuid,
-                                             boolean inputMuted) {
+            boolean inputMuted) {
         return send(new SetInputMuteRequest(inputName, inputUuid, inputMuted));
     }
 
@@ -451,7 +710,7 @@ public abstract class OBSRemoteControlBase {
      * Sets the volume setting of an input.
      */
     public SetInputVolumeResponse setInputVolume(String inputName, String inputUuid,
-                                                 int inputVolumeMul, int inputVolumeDb) {
+            int inputVolumeMul, int inputVolumeDb) {
         return send(new SetInputVolumeRequest(inputName, inputUuid, inputVolumeMul, inputVolumeDb));
     }
 
@@ -466,17 +725,17 @@ public abstract class OBSRemoteControlBase {
      * Sets the audio balance of an input.
      */
     public SetInputAudioBalanceResponse setInputAudioBalance(String inputName, String inputUuid,
-                                                             int inputAudioBalance) {
+            int inputAudioBalance) {
         return send(new SetInputAudioBalanceRequest(inputName, inputUuid, inputAudioBalance));
     }
 
     /**
      * Gets the audio sync offset of an input.
-     * <p>
+     *
      * Note: The audio sync offset can be negative too!
      */
     public GetInputAudioSyncOffsetResponse getInputAudioSyncOffset(String inputName,
-                                                                   String inputUuid) {
+            String inputUuid) {
         return send(new GetInputAudioSyncOffsetRequest(inputName, inputUuid));
     }
 
@@ -484,21 +743,21 @@ public abstract class OBSRemoteControlBase {
      * Sets the audio sync offset of an input.
      */
     public SetInputAudioSyncOffsetResponse setInputAudioSyncOffset(String inputName,
-                                                                   String inputUuid, int inputAudioSyncOffset) {
+            String inputUuid, int inputAudioSyncOffset) {
         return send(new SetInputAudioSyncOffsetRequest(inputName, inputUuid, inputAudioSyncOffset));
     }
 
     /**
      * Gets the audio monitor type of an input.
-     * <p>
+     *
      * The available audio monitor types are:
-     * <p>
+     *
      * - `OBS_MONITORING_TYPE_NONE`
      * - `OBS_MONITORING_TYPE_MONITOR_ONLY`
      * - `OBS_MONITORING_TYPE_MONITOR_AND_OUTPUT`
      */
     public GetInputAudioMonitorTypeResponse getInputAudioMonitorType(String inputName,
-                                                                     String inputUuid) {
+            String inputUuid) {
         return send(new GetInputAudioMonitorTypeRequest(inputName, inputUuid));
     }
 
@@ -506,7 +765,7 @@ public abstract class OBSRemoteControlBase {
      * Sets the audio monitor type of an input.
      */
     public SetInputAudioMonitorTypeResponse setInputAudioMonitorType(String inputName,
-                                                                     String inputUuid, String monitorType) {
+            String inputUuid, String monitorType) {
         return send(new SetInputAudioMonitorTypeRequest(inputName, inputUuid, monitorType));
     }
 
@@ -521,15 +780,15 @@ public abstract class OBSRemoteControlBase {
      * Sets the enable state of audio tracks of an input.
      */
     public SetInputAudioTracksResponse setInputAudioTracks(String inputName, String inputUuid,
-                                                           Object inputAudioTracks) {
+            Object inputAudioTracks) {
         return send(new SetInputAudioTracksRequest(inputName, inputUuid, inputAudioTracks));
     }
 
     /**
      * Gets the deinterlace mode of an input.
-     * <p>
+     *
      * Deinterlace Modes:
-     * <p>
+     *
      * - `OBS_DEINTERLACE_MODE_DISABLE`
      * - `OBS_DEINTERLACE_MODE_DISCARD`
      * - `OBS_DEINTERLACE_MODE_RETRO`
@@ -539,52 +798,52 @@ public abstract class OBSRemoteControlBase {
      * - `OBS_DEINTERLACE_MODE_LINEAR_2X`
      * - `OBS_DEINTERLACE_MODE_YADIF`
      * - `OBS_DEINTERLACE_MODE_YADIF_2X`
-     * <p>
+     *
      * Note: Deinterlacing functionality is restricted to async inputs only.
      */
     public GetInputDeinterlaceModeResponse getInputDeinterlaceMode(String inputName,
-                                                                   String inputUuid) {
+            String inputUuid) {
         return send(new GetInputDeinterlaceModeRequest(inputName, inputUuid));
     }
 
     /**
      * Sets the deinterlace mode of an input.
-     * <p>
+     *
      * Note: Deinterlacing functionality is restricted to async inputs only.
      */
     public SetInputDeinterlaceModeResponse setInputDeinterlaceMode(String inputName,
-                                                                   String inputUuid, String inputDeinterlaceMode) {
+            String inputUuid, String inputDeinterlaceMode) {
         return send(new SetInputDeinterlaceModeRequest(inputName, inputUuid, inputDeinterlaceMode));
     }
 
     /**
      * Gets the deinterlace field order of an input.
-     * <p>
+     *
      * Deinterlace Field Orders:
-     * <p>
+     *
      * - `OBS_DEINTERLACE_FIELD_ORDER_TOP`
      * - `OBS_DEINTERLACE_FIELD_ORDER_BOTTOM`
-     * <p>
+     *
      * Note: Deinterlacing functionality is restricted to async inputs only.
      */
     public GetInputDeinterlaceFieldOrderResponse getInputDeinterlaceFieldOrder(String inputName,
-                                                                               String inputUuid) {
+            String inputUuid) {
         return send(new GetInputDeinterlaceFieldOrderRequest(inputName, inputUuid));
     }
 
     /**
      * Sets the deinterlace field order of an input.
-     * <p>
+     *
      * Note: Deinterlacing functionality is restricted to async inputs only.
      */
     public SetInputDeinterlaceFieldOrderResponse setInputDeinterlaceFieldOrder(String inputName,
-                                                                               String inputUuid, String inputDeinterlaceFieldOrder) {
+            String inputUuid, String inputDeinterlaceFieldOrder) {
         return send(new SetInputDeinterlaceFieldOrderRequest(inputName, inputUuid, inputDeinterlaceFieldOrder));
     }
 
     /**
      * Gets the items of a list property from an input's properties.
-     * <p>
+     *
      * Note: Use this in cases where an input provides a dynamic, selectable list of items. For example, display capture, where it provides a list of available displays.
      */
     public GetInputPropertiesListPropertyItemsResponse getInputPropertiesListPropertyItems(
@@ -594,23 +853,23 @@ public abstract class OBSRemoteControlBase {
 
     /**
      * Presses a button in the properties of an input.
-     * <p>
+     *
      * Some known `propertyName` values are:
-     * <p>
+     *
      * - `refreshnocache` - Browser source reload button
-     * <p>
+     *
      * Note: Use this in cases where there is a button in the properties of an input that cannot be accessed in any other way. For example, browser sources, where there is a refresh button.
      */
     public PressInputPropertiesButtonResponse pressInputPropertiesButton(String inputName,
-                                                                         String inputUuid, String propertyName) {
+            String inputUuid, String propertyName) {
         return send(new PressInputPropertiesButtonRequest(inputName, inputUuid, propertyName));
     }
 
     /**
      * Gets the status of a media input.
-     * <p>
+     *
      * Media States:
-     * <p>
+     *
      * - `OBS_MEDIA_STATE_NONE`
      * - `OBS_MEDIA_STATE_PLAYING`
      * - `OBS_MEDIA_STATE_OPENING`
@@ -626,21 +885,21 @@ public abstract class OBSRemoteControlBase {
 
     /**
      * Sets the cursor position of a media input.
-     * <p>
+     *
      * This request does not perform bounds checking of the cursor position.
      */
     public SetMediaInputCursorResponse setMediaInputCursor(String inputName, String inputUuid,
-                                                           int mediaCursor) {
+            int mediaCursor) {
         return send(new SetMediaInputCursorRequest(inputName, inputUuid, mediaCursor));
     }
 
     /**
      * Offsets the current cursor position of a media input by the specified value.
-     * <p>
+     *
      * This request does not perform bounds checking of the cursor position.
      */
     public OffsetMediaInputCursorResponse offsetMediaInputCursor(String inputName, String inputUuid,
-                                                                 int mediaCursorOffset) {
+            int mediaCursorOffset) {
         return send(new OffsetMediaInputCursorRequest(inputName, inputUuid, mediaCursorOffset));
     }
 
@@ -648,7 +907,7 @@ public abstract class OBSRemoteControlBase {
      * Triggers an action on a media input.
      */
     public TriggerMediaInputActionResponse triggerMediaInputAction(String inputName,
-                                                                   String inputUuid, String mediaAction) {
+            String inputUuid, String mediaAction) {
         return send(new TriggerMediaInputActionRequest(inputName, inputUuid, mediaAction));
     }
 
@@ -829,7 +1088,7 @@ public abstract class OBSRemoteControlBase {
 
     /**
      * Adds a new chapter marker to the file currently being recorded.
-     * <p>
+     *
      * Note: As of OBS 30.2.0, the only file format supporting this feature is Hybrid MP4.
      */
     public CreateRecordChapterResponse createRecordChapter(String chapterName) {
@@ -838,33 +1097,33 @@ public abstract class OBSRemoteControlBase {
 
     /**
      * Gets a list of all scene items in a scene.
-     * <p>
+     *
      * Scenes only
      */
     public GetSceneItemListResponse getSceneItemList(String canvasUuid, String sceneName,
-                                                     String sceneUuid) {
+            String sceneUuid) {
         return send(new GetSceneItemListRequest(canvasUuid, sceneName, sceneUuid));
     }
 
     /**
      * Basically GetSceneItemList, but for groups.
-     * <p>
+     *
      * Using groups at all in OBS is discouraged, as they are very broken under the hood. Please use nested scenes instead.
-     * <p>
+     *
      * Groups only
      */
     public GetGroupSceneItemListResponse getGroupSceneItemList(String canvasUuid, String sceneName,
-                                                               String sceneUuid) {
+            String sceneUuid) {
         return send(new GetGroupSceneItemListRequest(canvasUuid, sceneName, sceneUuid));
     }
 
     /**
      * Searches a scene for a source, and returns its id.
-     * <p>
+     *
      * Scenes and Groups
      */
     public GetSceneItemIdResponse getSceneItemId(String canvasUuid, String sceneName,
-                                                 String sceneUuid, String sourceName, int searchOffset) {
+            String sceneUuid, String sourceName, int searchOffset) {
         return send(new GetSceneItemIdRequest(canvasUuid, sceneName, sceneUuid, sourceName, searchOffset));
     }
 
@@ -872,48 +1131,48 @@ public abstract class OBSRemoteControlBase {
      * Gets the source associated with a scene item.
      */
     public GetSceneItemSourceResponse getSceneItemSource(String canvasUuid, String sceneName,
-                                                         String sceneUuid, int sceneItemId) {
+            String sceneUuid, int sceneItemId) {
         return send(new GetSceneItemSourceRequest(canvasUuid, sceneName, sceneUuid, sceneItemId));
     }
 
     /**
      * Creates a new scene item using a source.
-     * <p>
+     *
      * Scenes only
      */
     public CreateSceneItemResponse createSceneItem(String canvasUuid, String sceneName,
-                                                   String sceneUuid, String sourceName, String sourceUuid, boolean sceneItemEnabled) {
+            String sceneUuid, String sourceName, String sourceUuid, boolean sceneItemEnabled) {
         return send(new CreateSceneItemRequest(canvasUuid, sceneName, sceneUuid, sourceName, sourceUuid, sceneItemEnabled));
     }
 
     /**
      * Removes a scene item from a scene.
-     * <p>
+     *
      * Scenes only
      */
     public RemoveSceneItemResponse removeSceneItem(String canvasUuid, String sceneName,
-                                                   String sceneUuid, int sceneItemId) {
+            String sceneUuid, int sceneItemId) {
         return send(new RemoveSceneItemRequest(canvasUuid, sceneName, sceneUuid, sceneItemId));
     }
 
     /**
      * Duplicates a scene item, copying all transform and crop info.
-     * <p>
+     *
      * Scenes only
      */
     public DuplicateSceneItemResponse duplicateSceneItem(String canvasUuid, String sceneName,
-                                                         String sceneUuid, int sceneItemId, String destinationSceneName,
-                                                         String destinationSceneUuid) {
+            String sceneUuid, int sceneItemId, String destinationSceneName,
+            String destinationSceneUuid) {
         return send(new DuplicateSceneItemRequest(canvasUuid, sceneName, sceneUuid, sceneItemId, destinationSceneName, destinationSceneUuid));
     }
 
     /**
      * Gets the transform and crop info of a scene item.
-     * <p>
+     *
      * Scenes and Groups
      */
     public GetSceneItemTransformResponse getSceneItemTransform(String canvasUuid, String sceneName,
-                                                               String sceneUuid, int sceneItemId) {
+            String sceneUuid, int sceneItemId) {
         return send(new GetSceneItemTransformRequest(canvasUuid, sceneName, sceneUuid, sceneItemId));
     }
 
@@ -921,77 +1180,77 @@ public abstract class OBSRemoteControlBase {
      * Sets the transform and crop info of a scene item.
      */
     public SetSceneItemTransformResponse setSceneItemTransform(String canvasUuid, String sceneName,
-                                                               String sceneUuid, int sceneItemId, Object sceneItemTransform) {
+            String sceneUuid, int sceneItemId, Object sceneItemTransform) {
         return send(new SetSceneItemTransformRequest(canvasUuid, sceneName, sceneUuid, sceneItemId, sceneItemTransform));
     }
 
     /**
      * Gets the enable state of a scene item.
-     * <p>
+     *
      * Scenes and Groups
      */
     public GetSceneItemEnabledResponse getSceneItemEnabled(String canvasUuid, String sceneName,
-                                                           String sceneUuid, int sceneItemId) {
+            String sceneUuid, int sceneItemId) {
         return send(new GetSceneItemEnabledRequest(canvasUuid, sceneName, sceneUuid, sceneItemId));
     }
 
     /**
      * Sets the enable state of a scene item.
-     * <p>
+     *
      * Scenes and Groups
      */
     public SetSceneItemEnabledResponse setSceneItemEnabled(String canvasUuid, String sceneName,
-                                                           String sceneUuid, int sceneItemId, boolean sceneItemEnabled) {
+            String sceneUuid, int sceneItemId, boolean sceneItemEnabled) {
         return send(new SetSceneItemEnabledRequest(canvasUuid, sceneName, sceneUuid, sceneItemId, sceneItemEnabled));
     }
 
     /**
      * Gets the lock state of a scene item.
-     * <p>
+     *
      * Scenes and Groups
      */
     public GetSceneItemLockedResponse getSceneItemLocked(String canvasUuid, String sceneName,
-                                                         String sceneUuid, int sceneItemId) {
+            String sceneUuid, int sceneItemId) {
         return send(new GetSceneItemLockedRequest(canvasUuid, sceneName, sceneUuid, sceneItemId));
     }
 
     /**
      * Sets the lock state of a scene item.
-     * <p>
+     *
      * Scenes and Group
      */
     public SetSceneItemLockedResponse setSceneItemLocked(String canvasUuid, String sceneName,
-                                                         String sceneUuid, int sceneItemId, boolean sceneItemLocked) {
+            String sceneUuid, int sceneItemId, boolean sceneItemLocked) {
         return send(new SetSceneItemLockedRequest(canvasUuid, sceneName, sceneUuid, sceneItemId, sceneItemLocked));
     }
 
     /**
      * Gets the index position of a scene item in a scene.
-     * <p>
+     *
      * An index of 0 is at the bottom of the source list in the UI.
-     * <p>
+     *
      * Scenes and Groups
      */
     public GetSceneItemIndexResponse getSceneItemIndex(String canvasUuid, String sceneName,
-                                                       String sceneUuid, int sceneItemId) {
+            String sceneUuid, int sceneItemId) {
         return send(new GetSceneItemIndexRequest(canvasUuid, sceneName, sceneUuid, sceneItemId));
     }
 
     /**
      * Sets the index position of a scene item in a scene.
-     * <p>
+     *
      * Scenes and Groups
      */
     public SetSceneItemIndexResponse setSceneItemIndex(String canvasUuid, String sceneName,
-                                                       String sceneUuid, int sceneItemId, int sceneItemIndex) {
+            String sceneUuid, int sceneItemId, int sceneItemIndex) {
         return send(new SetSceneItemIndexRequest(canvasUuid, sceneName, sceneUuid, sceneItemId, sceneItemIndex));
     }
 
     /**
      * Gets the blend mode of a scene item.
-     * <p>
+     *
      * Blend modes:
-     * <p>
+     *
      * - `OBS_BLEND_NORMAL`
      * - `OBS_BLEND_ADDITIVE`
      * - `OBS_BLEND_SUBTRACT`
@@ -999,21 +1258,21 @@ public abstract class OBSRemoteControlBase {
      * - `OBS_BLEND_MULTIPLY`
      * - `OBS_BLEND_LIGHTEN`
      * - `OBS_BLEND_DARKEN`
-     * <p>
+     *
      * Scenes and Groups
      */
     public GetSceneItemBlendModeResponse getSceneItemBlendMode(String canvasUuid, String sceneName,
-                                                               String sceneUuid, int sceneItemId) {
+            String sceneUuid, int sceneItemId) {
         return send(new GetSceneItemBlendModeRequest(canvasUuid, sceneName, sceneUuid, sceneItemId));
     }
 
     /**
      * Sets the blend mode of a scene item.
-     * <p>
+     *
      * Scenes and Groups
      */
     public SetSceneItemBlendModeResponse setSceneItemBlendMode(String canvasUuid, String sceneName,
-                                                               String sceneUuid, int sceneItemId, String sceneItemBlendMode) {
+            String sceneUuid, int sceneItemId, String sceneItemBlendMode) {
         return send(new SetSceneItemBlendModeRequest(canvasUuid, sceneName, sceneUuid, sceneItemId, sceneItemBlendMode));
     }
 
@@ -1026,7 +1285,7 @@ public abstract class OBSRemoteControlBase {
 
     /**
      * Gets an array of all groups in OBS.
-     * <p>
+     *
      * Groups in OBS are actually scenes, but renamed and modified. In obs-websocket, we treat them as scenes where we can.
      */
     public GetGroupListResponse getGroupList() {
@@ -1035,9 +1294,9 @@ public abstract class OBSRemoteControlBase {
 
     /**
      * Gets the current program scene.
-     * <p>
+     *
      * Note 1: This request is slated to have the `currentProgram`-prefixed fields removed from in an upcoming RPC version.
-     * <p>
+     *
      * Note 2: Canvases do not have any concept of a program or preview scene, so this request does not support canvases.
      */
     public GetCurrentProgramSceneResponse getCurrentProgramScene() {
@@ -1048,15 +1307,15 @@ public abstract class OBSRemoteControlBase {
      * Sets the current program scene.
      */
     public SetCurrentProgramSceneResponse setCurrentProgramScene(String sceneName,
-                                                                 String sceneUuid) {
+            String sceneUuid) {
         return send(new SetCurrentProgramSceneRequest(sceneName, sceneUuid));
     }
 
     /**
      * Gets the current preview scene.
-     * <p>
+     *
      * Only available when studio mode is enabled.
-     * <p>
+     *
      * Note: This request is slated to have the `currentPreview`-prefixed fields removed from in an upcoming RPC version.
      */
     public GetCurrentPreviewSceneResponse getCurrentPreviewScene() {
@@ -1065,11 +1324,11 @@ public abstract class OBSRemoteControlBase {
 
     /**
      * Sets the current preview scene.
-     * <p>
+     *
      * Only available when studio mode is enabled.
      */
     public SetCurrentPreviewSceneResponse setCurrentPreviewScene(String sceneName,
-                                                                 String sceneUuid) {
+            String sceneUuid) {
         return send(new SetCurrentPreviewSceneRequest(sceneName, sceneUuid));
     }
 
@@ -1091,13 +1350,13 @@ public abstract class OBSRemoteControlBase {
      * Sets the name of a scene (rename).
      */
     public SetSceneNameResponse setSceneName(String canvasUuid, String sceneName, String sceneUuid,
-                                             String newSceneName) {
+            String newSceneName) {
         return send(new SetSceneNameRequest(canvasUuid, sceneName, sceneUuid, newSceneName));
     }
 
     /**
      * Gets the scene transition overridden for a scene.
-     * <p>
+     *
      * Note: A transition UUID response field is not currently able to be implemented as of 2024-1-18.
      */
     public GetSceneSceneTransitionOverrideResponse getSceneSceneTransitionOverride(
@@ -1116,39 +1375,39 @@ public abstract class OBSRemoteControlBase {
 
     /**
      * Gets the active and show state of a source.
-     * <p>
+     *
      * **Compatible with inputs and scenes.**
      */
     public GetSourceActiveResponse getSourceActive(String canvasUuid, String sourceName,
-                                                   String sourceUuid) {
+            String sourceUuid) {
         return send(new GetSourceActiveRequest(canvasUuid, sourceName, sourceUuid));
     }
 
     /**
      * Gets a Base64-encoded screenshot of a source.
-     * <p>
+     *
      * The `imageWidth` and `imageHeight` parameters are treated as "scale to inner", meaning the smallest ratio will be used and the aspect ratio of the original resolution is kept.
      * If `imageWidth` and `imageHeight` are not specified, the compressed image will use the full resolution of the source.
-     * <p>
+     *
      * **Compatible with inputs and scenes.**
      */
     public GetSourceScreenshotResponse getSourceScreenshot(String canvasUuid, String sourceName,
-                                                           String sourceUuid, String imageFormat, int imageWidth, int imageHeight,
-                                                           int imageCompressionQuality) {
+            String sourceUuid, String imageFormat, int imageWidth, int imageHeight,
+            int imageCompressionQuality) {
         return send(new GetSourceScreenshotRequest(canvasUuid, sourceName, sourceUuid, imageFormat, imageWidth, imageHeight, imageCompressionQuality));
     }
 
     /**
      * Saves a screenshot of a source to the filesystem.
-     * <p>
+     *
      * The `imageWidth` and `imageHeight` parameters are treated as "scale to inner", meaning the smallest ratio will be used and the aspect ratio of the original resolution is kept.
      * If `imageWidth` and `imageHeight` are not specified, the compressed image will use the full resolution of the source.
-     * <p>
+     *
      * **Compatible with inputs and scenes.**
      */
     public SaveSourceScreenshotResponse saveSourceScreenshot(String canvasUuid, String sourceName,
-                                                             String sourceUuid, String imageFormat, String imageFilePath, int imageWidth,
-                                                             int imageHeight, int imageCompressionQuality) {
+            String sourceUuid, String imageFormat, String imageFilePath, int imageWidth,
+            int imageHeight, int imageCompressionQuality) {
         return send(new SaveSourceScreenshotRequest(canvasUuid, sourceName, sourceUuid, imageFormat, imageFilePath, imageWidth, imageHeight, imageCompressionQuality));
     }
 
@@ -1189,7 +1448,7 @@ public abstract class OBSRemoteControlBase {
 
     /**
      * Gets an array of all available transition kinds.
-     * <p>
+     *
      * Similar to `GetInputKindList`
      */
     public GetTransitionKindListResponse getTransitionKindList() {
@@ -1212,7 +1471,7 @@ public abstract class OBSRemoteControlBase {
 
     /**
      * Sets the current scene transition.
-     * <p>
+     *
      * Small note: While the namespace of scene transitions is generally unique, that uniqueness is not a guarantee as it is with other resources like inputs.
      */
     public SetCurrentSceneTransitionResponse setCurrentSceneTransition(String transitionName) {
@@ -1237,7 +1496,7 @@ public abstract class OBSRemoteControlBase {
 
     /**
      * Gets the cursor position of the current scene transition.
-     * <p>
+     *
      * Note: `transitionCursor` will return 1.0 when the transition is inactive.
      */
     public GetCurrentSceneTransitionCursorResponse getCurrentSceneTransitionCursor() {
@@ -1253,7 +1512,7 @@ public abstract class OBSRemoteControlBase {
 
     /**
      * Sets the position of the TBar.
-     * <p>
+     *
      * **Very important note**: This will be deprecated and replaced in a future version of obs-websocket.
      */
     public SetTBarPositionResponse setTBarPosition(int position, boolean release) {
@@ -1278,7 +1537,7 @@ public abstract class OBSRemoteControlBase {
      * Opens the properties dialog of an input.
      */
     public OpenInputPropertiesDialogResponse openInputPropertiesDialog(String inputName,
-                                                                       String inputUuid) {
+            String inputUuid) {
         return send(new OpenInputPropertiesDialogRequest(inputName, inputUuid));
     }
 
@@ -1286,7 +1545,7 @@ public abstract class OBSRemoteControlBase {
      * Opens the filters dialog of an input.
      */
     public OpenInputFiltersDialogResponse openInputFiltersDialog(String inputName,
-                                                                 String inputUuid) {
+            String inputUuid) {
         return send(new OpenInputFiltersDialogRequest(inputName, inputUuid));
     }
 
@@ -1294,7 +1553,7 @@ public abstract class OBSRemoteControlBase {
      * Opens the interact dialog of an input.
      */
     public OpenInputInteractDialogResponse openInputInteractDialog(String inputName,
-                                                                   String inputUuid) {
+            String inputUuid) {
         return send(new OpenInputInteractDialogRequest(inputName, inputUuid));
     }
 
@@ -1307,27 +1566,27 @@ public abstract class OBSRemoteControlBase {
 
     /**
      * Opens a projector for a specific output video mix.
-     * <p>
+     *
      * Mix types:
-     * <p>
+     *
      * - `OBS_WEBSOCKET_VIDEO_MIX_TYPE_PREVIEW`
      * - `OBS_WEBSOCKET_VIDEO_MIX_TYPE_PROGRAM`
      * - `OBS_WEBSOCKET_VIDEO_MIX_TYPE_MULTIVIEW`
-     * <p>
+     *
      * Note: This request serves to provide feature parity with 4.x. It is very likely to be changed/deprecated in a future release.
      */
     public OpenVideoMixProjectorResponse openVideoMixProjector(String videoMixType,
-                                                               int monitorIndex, String projectorGeometry) {
+            int monitorIndex, String projectorGeometry) {
         return send(new OpenVideoMixProjectorRequest(videoMixType, monitorIndex, projectorGeometry));
     }
 
     /**
      * Opens a projector for a source.
-     * <p>
+     *
      * Note: This request serves to provide feature parity with 4.x. It is very likely to be changed/deprecated in a future release.
      */
     public OpenSourceProjectorResponse openSourceProjector(String canvasUuid, String sourceName,
-                                                           String sourceUuid, int monitorIndex, String projectorGeometry) {
+            String sourceUuid, int monitorIndex, String projectorGeometry) {
         return send(new OpenSourceProjectorRequest(canvasUuid, sourceName, sourceUuid, monitorIndex, projectorGeometry));
     }
 
